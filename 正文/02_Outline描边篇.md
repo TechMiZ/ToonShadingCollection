@@ -113,6 +113,7 @@
 
 **视觉优化：**
 
+- 暗处勾边色彩饱和度建议提高，否则容易看不清楚。
 - 使用mask贴图或顶点色的一个通道值，控制描边宽度大小。
 
 ![CH02_outline_C_OutlineWidthControl](../imgs/CH02_outline_C_OutlineWidthControl.png)
@@ -134,6 +135,8 @@
 - 硬边上的法线分叉导致的勾边断裂问题，要靠合并硬边顶点上不同法线的方向，再把这个修正法线结果存进顶点信息中，模型空间的法线可以存进顶点的NORMAL或TANGENT里，顶点色或其它UV只能存切线空间的法线。另外也可以不做硬边，要硬边的地方全部做成倒角的连续边，不过这会增加面数。
 
 ![CH02_outline_C_OutlineHardEdgeControl](../imgs/CH02_outline_C_OutlineHardEdgeControl.jpg)
+
+![CH02_outline_C_OutlineHardEdgeFix](../imgs/CH02_outline_C_OutlineHardEdgeFix.jpg)
 
  <br>
 
