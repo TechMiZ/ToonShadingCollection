@@ -34,9 +34,9 @@ return BandedNL;
 
 ![CH03_directDiffuse_B_BandedLighting](../imgs/CH03_directDiffuse_B_BandedLighting.jpg)
 
-**性能优化：**注意避免使用 if 判断分区。
+**性能优化：** 注意避免使用 if 判断分区。
 
-**视觉优化：**简单粗暴的明暗交界跳变会产生锯齿，可以补充抗锯齿处理，见高光章节，另外也可以通过下文的柔化边缘方法回避这个问题。
+**视觉优化： **简单粗暴的明暗交界跳变会产生锯齿，可以补充抗锯齿处理，见高光章节，另外也可以通过下文的柔化边缘方法回避这个问题。
 
 ![CH03_directDiffuse_B_EdgeAntiAliasing](../imgs/CH03_directDiffuse_B_EdgeAntiAliasing.png)
 
@@ -68,13 +68,13 @@ return BandedNL;
 
 ![CH03_directDiffuse_C_CelDiffuseSmooth](../imgs/CH03_directDiffuse_C_CelDiffuseSmooth.jpg)
 
-**优点：**性能较好，可以在编辑器直接拖拽参数调整。
+**优点： **性能较好，可以在编辑器直接拖拽参数调整。
 
-**缺点：**自由度不一定能满足美术需求，色彩相对单调。
+**缺点：** 自由度不一定能满足美术需求，色彩相对单调。
 
  <br>
 
-**性能优化：**平滑过渡的smoothstep函数也有一定性能压力，还可以删掉平滑计算部分、改为纯线性变化的InverseLerp函数。
+**性能优化： **平滑过渡的smoothstep函数也有一定性能压力，还可以删掉平滑计算部分、改为纯线性变化的InverseLerp函数。
 
 ```glsl
 	float InverseLerp(float a, float b, float value)
@@ -134,7 +134,7 @@ inline fixed4 LightingToon(SurfaceOutput s, half3 lightDir, half3 viewDir, half 
 
 ![CH03_directDiffuse_D_HalfLambertRamp](../imgs/CH03_directDiffuse_D_HalfLambertRamp.jpg)
 
-**原理：**通过Half Lambert值对一个纹理贴图进行采样来获得梯度变化的光影。
+**原理：** 通过Half Lambert值对一个纹理贴图进行采样来获得梯度变化的光影。
 
 ```glsl
 fixed halfLambert = 0.5 * dot(lightDir, worldNormal) + 0.5;
@@ -151,11 +151,15 @@ fixed3 diffuseColor = tex2D(_RampTex, fixed2(halfLambert, halfLambert)).rgb;
 - 多采样一张贴图，增加性能压力。
 - 调整ramp贴图不如直接编辑器拖拽参数方便。
 
+<br>
+
 **性能优化：** 通常建议使用尽量小的ramp贴图，一条ramp值只需要高1或2像素就行，长度一般也不用大于256像素。为了尽量少浪费像素，Ramp贴图上可以砍掉不再有色彩变化的亮部或暗部，只需要包括明暗交界线周边需要有颜色渐变的区间内的色彩，在实际计算中通过手动调整ramp映射开始到结束的明暗位置。
 
 ![CH03_directDiffuse_D_RampPunishingExample](../imgs/CH03_directDiffuse_D_RampPunishingExample.png)
 
 *↑战双ramp贴图*
+
+<br>
 
 **注意：** Ramp贴图的Wrap Mode通常选Clamp。如果保留Unity默认的Repeat选项，很可能会导致边界像素采样错误。
 
@@ -220,6 +224,12 @@ Diff = tex2D(ramp, UV).rgb * LightColor.rgb * baseTex;
 
 ![CH03_directDiffuse_E_Ramp2DbyView](../imgs/CH03_directDiffuse_E_Ramp2DbyView.jpg)
 
+Siggraph的Pre-Integrated Skin Rendering做法是，在横向UV上使用NdotL，纵向UV上使用1/半径（曲率：用法线偏导数除以位置偏导数的值）。在眼，鼻子，嘴这些凹凸明显（即肉薄）的位置附近增强了SSS的红润气色（透光带血色）。虽然这是写实渲染的经验，但也可以借鉴。
+
+![CH03_directDiffuse_E_Ramp2DbyCurve](../imgs/CH03_directDiffuse_E_Ramp2DbyCurve.png)
+
+![CH03_directDiffuse_E_Ramp2DbyCurvature](../imgs/CH03_directDiffuse_E_Ramp2DbyCurvature.png)
+
 话说回来，这种方法就很难做到省像素了。
 
 <br>
@@ -274,11 +284,15 @@ Diff = tex2D(ramp, UV).rgb * LightColor.rgb * baseTex;
 
 ![CH03_directDiffuse_F_DivideDarkSide](../imgs/CH03_directDiffuse_F_DivideDarkSide.jpg)
 
+![CH03_directDiffuse_F_PunishingShadowMask](../imgs/CH03_directDiffuse_F_PunishingShadowMask.png)
+
+*↑战双的阴影控制mask，最黑区域会算成固定二阶阴影，深灰区域是可动一阶阴影*
+
 <br>
 
 ![CH03_directDiffuse_F_GenshinRampTone](../imgs/CH03_directDiffuse_F_GenshinRampTone.png)
 
-*↑注意观察原神这张ramp贴图的明暗变化，靠近左侧末尾其实有稍微提亮*
+*↑注意观察原神这张ramp贴图的明暗变化，靠近左侧其实有稍微提亮*
 
 <br>
 
