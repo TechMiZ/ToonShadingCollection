@@ -344,6 +344,16 @@ Siggraph的Pre-Integrated Skin Rendering做法是，在横向UV上使用NdotL，
 
 <br>
 
+#### 固有色贴图配合
+
+还有一个要考虑的点：固有色贴图上要不要有、有多少明暗细节？
+
+一种意见：日系二次元的渲染风格以自发光为主，特别是皮肤要白皙干净。模型固有色贴图部分不要带强烈的阴影，衣服只要画出固有色和褶皱部分。皮肤需要根据立体结构有一点明暗变化，特别是脖子和衣服遮盖的暗部。
+
+![CH03_directDiffuse_G_BaseMapDetails](../imgs/CH03_directDiffuse_G_BaseMapDetails.png)
+
+<br>
+
 <br>
 
 ------
@@ -365,7 +375,6 @@ Siggraph的Pre-Integrated Skin Rendering做法是，在横向UV上使用NdotL，
 <br>
 
 ------
-
 
 
 

@@ -1,6 +1,6 @@
 # Toon Shading Collection 
 
-## CH04 - Rim 边缘光/勾边光
+## CH07 - PBR Integration PBR结合
 
 
 
