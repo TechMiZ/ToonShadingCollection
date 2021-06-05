@@ -116,6 +116,20 @@ float rimLightLength, float rimLightWidth, float rimLightFeather, float3 baseCol
 
 ------
 
+### 边缘光颜色搭配
+
+一些参考：
+
+- 直接用主光颜色，可能叠固有色。
+- 用环境光颜色作为边缘光颜色。
+- 对亮部暗部分别设置边缘光颜色。
+
+<br>
+
+<br>
+
+------
+
 ### 双面渲染对边缘光的影响
 
 ![CH06_Rim_C_CullOffPassRim](../imgs/CH06_Rim_C_CullOffPassRim.png)
@@ -193,5 +207,4 @@ float rimLightLength, float rimLightWidth, float rimLightFeather, float3 baseCol
 <br>
 
 ------
-
 

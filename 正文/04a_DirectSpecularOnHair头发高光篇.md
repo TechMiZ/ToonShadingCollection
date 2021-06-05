@@ -50,7 +50,7 @@
 
 ![CH04a_hairDirectSpecular_A_AnisoToonHairHonkai3MMD](../imgs/CH04a_hairDirectSpecular_A_AnisoToonHairHonkai3MMD.jpg)
 
-*↑崩坏3角色MMD头发高光*
+*↑崩坏3角色MMD：对两层高光设有不同亮度和色相，这样使得高光层次更为丰富*
 
 ![CH04a_hairDirectSpecular_A_AnisoToonHairNetEase](../imgs/CH04a_hairDirectSpecular_A_AnisoToonHairNetEase.png)
 

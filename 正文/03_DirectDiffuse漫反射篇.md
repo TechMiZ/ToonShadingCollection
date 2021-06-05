@@ -203,6 +203,8 @@ Ramp贴图制作起来并不复杂，可以使用Toony Colors Pro插件生成，
 
 这其实也是下面两节思路的简化版。
 
+另外，为了快速迭代，也可以不用ramp而是直接用颜色参数集搭配mask调整。
+
 <br>
 
 #### Ramp贴图二维化
@@ -351,6 +353,8 @@ Siggraph的Pre-Integrated Skin Rendering做法是，在横向UV上使用NdotL，
 一种意见：日系二次元的渲染风格以自发光为主，特别是皮肤要白皙干净。模型固有色贴图部分不要带强烈的阴影，衣服只要画出固有色和褶皱部分。皮肤需要根据立体结构有一点明暗变化，特别是脖子和衣服遮盖的暗部。
 
 ![CH03_directDiffuse_G_BaseMapDetails](../imgs/CH03_directDiffuse_G_BaseMapDetails.png)
+
+如果想尽量接近赛璐璐动画，那么固有色也不要带任何结构变化明暗，像罪恶装备一样。
 
 <br>
 

@@ -34,7 +34,9 @@
 
 下面看战双，虽然这个反射是在它PBR部分算的但姑且拿来举例吧，它的反射贴图超级简化，简简单单打几道区域光就很有卡通感。如果想定制化反射，就用偏简化的贴图吧。
 
-而假如随便找一张写实背景的反射贴图反而会显得太过写实、有种割裂感。但也不是不能多尝试，想直接跟环境走实时采样反射探针也行。![CH05_IndirectReflection_B_CubemapReflection](../imgs/CH05_IndirectReflection_B_CubemapReflection.png)
+而假如随便找一张写实背景的反射贴图反而会显得太过写实、有种割裂感。但也不是不能多尝试，想直接跟环境走实时采样反射探针也行。
+
+![CH05_IndirectReflection_B_CubemapReflection](../imgs/CH05_IndirectReflection_B_CubemapReflection.png)
 
 *↑战双的反射贴图，非常简化，虽然是在PBR部分算的*
 
@@ -54,11 +56,13 @@
 
 原神就在金属材质上统一用了张极简的MatCap反射贴图，立体感层次感强很多。
 
+另外，也可以考虑高光和反射都合并在MatCap上算了。
+
 <br>
 
 ![CH05_IndirectReflection_C_MatCapReflectionTex](../imgs/CH05_IndirectReflection_C_MatCapReflectionTex.png)
 
-*↑原神的反射贴图，乍一看都没想到是**MatCap，过于简化了*
+*↑原神的反射贴图，乍一看都没想到是MatCap，过于简化了*
 
 ![CH05_IndirectReflection_C_MatCapReflectedMetal1](../imgs/CH05_IndirectReflection_C_MatCapReflectedMetal1.png)
 
@@ -78,5 +82,12 @@
 
 ------
 
+### 极简伪反射
 
+![CH05_IndirectReflection_D_SimplifiedReflection](../imgs/CH05_IndirectReflection_D_SimplifiedReflection.png)
 
+碧蓝幻想的金属和皮革材质会有一圈边缘压暗效果，亮部压暗是软边的，暗部的压暗有硬边，搭配边缘光，实际上实现了反射效果的替代效用，给人造成材质错觉。
+
+再次注意一下原神的反射MatCap贴图，也是高度概括成了中心亮、四周暗、最外围又一圈亮色的样子，也就是说这是一种反射简化的共识。
+
+![CH05_IndirectReflection_C_MatCapReflectionTex](../imgs/CH05_IndirectReflection_C_MatCapReflectionTex.png)

@@ -90,6 +90,20 @@ fixed3 specular = smoothstep(-w, w, spec + _SpecularScale - 1)) * step(0.0001, _
 
 ------
 
+### 高光出现位置控制
+
+有观点说要限制高光随视角变化范围。
+
+直接把光源方向调整为视线方向，就能永久看到高光。光源稍微拉近视线方向也可以做到更容易看到高光。
+
+另外还有强度mask和大小mask用来控制高光。
+
+<br>
+
+<br>
+
+------
+
 ### 风格化高光
 
 有时候，我们需要对高光形态进行定制。
@@ -117,7 +131,13 @@ float3 specular = _SpecularColor * specRamp * _SpecularIntensity;
 
 #### 纯参数化计算变形
 
-形状自由，充分发挥算法想象力，但实际应用场景不多。
+形状自由，充分发挥算法想象力。
+
+Stylized Highlights for Cartoon Rendering and Animation这篇论文给出了几种有趣的卡通高光渲染，包括平移(Translation)、旋转(Rotation)、分割(Split)、有向性缩放(Directional Scaling)和方形化(Squaring)几种。这些光照的实现思想都是对Blinn-Phong模型中的Half向量做一些修改，然后根据法线和Half向量的点积结果改变高光的形状。
+
+![CH04_directSpecular_C_CustomHighlightPossibleCase](../imgs/CH04_directSpecular_C_CustomHighlightCase.jpg)
+
+*↑这种高光变形可能的应用场景，但也可以用反射做*
 
 ![CH04_directSpecular_C_CustomHighlight](../imgs/CH04_directSpecular_C_CustomHighlight.png)
 
@@ -143,9 +163,19 @@ float3 specular = _SpecularColor * specRamp * _SpecularIntensity;
 
 <br>
 
+#### 综合案例
+
+下面碧蓝幻想截图这个高光不同方向的软硬度显得不太一样，如果不是因为加了单方向性的bloom效果或者跟底色压暗混淆了，难道是按方向分别做了羽化？或者用了MatCap？这效果也挺有创意。另外金属高光边缘的底色饱和度有增加，让总体色彩更丰富了。
+
+![CH04_directSpecular_C_CompositeHighlight](../imgs/CH04_directSpecular_C_CompositeHighlight.png)
+
+<br>
+
+<br>
+
 ------
 
-### 特殊高光材质案例
+### 特殊高光材质
 
 #### 清漆材质
 
@@ -188,5 +218,4 @@ float3 specular = _SpecularColor * specRamp * _SpecularIntensity;
 <br>
 
 ------
-
 
