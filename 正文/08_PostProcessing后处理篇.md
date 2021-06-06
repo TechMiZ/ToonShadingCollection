@@ -46,6 +46,12 @@ Bloom是卡通渲染中比较常见的后处理，基本算是必备，但放手
 
 <br>
 
+Bloom使用高光提取，还可以偏移色相饱和度，这样对卡通渲染来说，色彩看起来就会更加丰富，而且从一定程度上，避免了应用Bloom后，画面会降低饱和度的现象。
+
+![CH08_PostProcessing_A_BloomHueSaturation](../imgs/CH08_PostProcessing_A_BloomHueSaturation.jpeg)
+
+<br>
+
 #### 性能优化方向探讨
 
 用Alpha通道控制Bloom的曝光，在渲染半透明物体的时候会遇到问题，因为半透明混合也需要用到Alpha，这点可以通过使用额外的Pass单独写入Alpha、原pass专门些RGB通道来解决。
