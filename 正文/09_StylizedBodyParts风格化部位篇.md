@@ -2,9 +2,9 @@
 
 ## CH09 - Stylized Body Parts 特殊风格化部位
 
-这章收集一下零散的风格化角色效果。
-
 <br>
+
+这章收集一下零散的风格化角色效果。
 
 <br>
 
@@ -30,7 +30,11 @@
 
 ![CH09_StylizedBodyParts_B_FaceHighlight](../imgs/CH09_StylizedBodyParts_B_FaceHighlight.png)
 
-新樱花大战给角色脸上一些部位加强了反光，有些手绘漫画风是会给脸上点些高光。
+*↑新樱花大战给角色脸上一些部位加强了反光*
+
+<br>
+
+有些手绘漫画风是会给脸上点些高光。
 
 这个高光的算法可以是传统高光，也可以魔改光源方向比如改成视线方向，也可以反向边缘光，做成正面永久可见。
 
@@ -38,9 +42,15 @@
 
 但嘴唇一般影响不大，鼻梁高光也还可以，可能颧骨上的高光不太好操作。
 
-新樱花大战确实太油了，跟渲染方案也有关系。
+新樱花大战确实太油了，跟整体渲染方案也有关系。
 
 ![CH09_StylizedBodyParts_B_FaceHighlightPositive](../imgs/CH09_StylizedBodyParts_B_FaceHighlightPositive.png)
+
+*↑战双的鼻梁和嘴唇高光，这就比较舒服（忽略右边脸的一层渐变加亮，自己加的）*
+
+![CH13_Shadow_C_SimplifiedAO](../imgs/CH13_Shadow_C_SimplifiedAO.png)
+
+*↑↑原神角色脸直接在固有色贴图上叠了一层淡淡的高光，位置还是鼻梁和嘴唇*
 
 <br>
 
@@ -48,11 +58,13 @@
 
 ------
 
+### 凸出位置高光叠色
 
+![CH09_StylizedBodyParts_C_CustomSkinHighlight](../imgs/CH09_StylizedBodyParts_C_CustomSkinHighlight.png)
 
+有的画风会在胸部、肩膀关节等部位的高光下叠一片粉色。
 
-
-
+<br>
 
 <br>
 
