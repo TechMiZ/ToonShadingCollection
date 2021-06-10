@@ -48,6 +48,8 @@
 
 ![CH06_Rim_B_RimOnBrightSide](../imgs/CH06_Rim_B_RimOnBrightSide.jpg)
 
+边缘光在面光时出现，也有利于勾勒人物边缘。
+
 <br>
 
 #### 逆光透射？
@@ -201,6 +203,12 @@ float rimLightLength, float rimLightWidth, float rimLightFeather, float3 baseCol
 ![CH06_Rim_E_ScreenSpaceDepthRimDemo](../imgs/CH06_Rim_E_ScreenSpaceDepthRimDemo.png)
 
 *↑查到的资料只有HDRP和URP的，于是自己试一下魔改成默认管线版，少盗点图……*
+
+<br>
+
+据说蓝色协议也是用了这种等宽边缘光，但看下图左边头顶的边缘光倒是有点不均匀，怀疑是融合了一点传统点积边缘光算法。
+
+![CH06_Rim_E_MergeRim](../imgs/CH06_Rim_E_MergeRim.jpg)
 
 <br>
 

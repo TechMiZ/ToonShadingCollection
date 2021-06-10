@@ -362,6 +362,14 @@ Siggraph的Pre-Integrated Skin Rendering做法是，在横向UV上使用NdotL，
 
 ------
 
+
+
+<br>
+
+<br>
+
+------
+
 ### 漫反射整体色彩与环境的统一
 
 ![CH03_directDiffuse_G_TintShade](../imgs/CH03_directDiffuse_G_TintShade.jpg)
