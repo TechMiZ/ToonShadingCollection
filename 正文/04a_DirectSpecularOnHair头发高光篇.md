@@ -96,7 +96,7 @@ UTS里使用视线空间法线采样matcap贴图做出假高光，法线贴图�
 
 **优点：** 高光形状的自由度比较高。
 
-**缺点：** 从任何视角方向看都只能看到为指定视角设计的高光。
+**缺点：** 从任何视角方向看都只能看到为指定视角设计的高光，对自然披散的头发效果最佳，但对扎起的头发、刺猬头等发型不一定看上去效果好。
 
 <br>
 
@@ -105,6 +105,49 @@ UTS里使用视线空间法线采样matcap贴图做出假高光，法线贴图�
 ![CH04a_hairDirectSpecular_B_MatCapToonHairTextures](../imgs/CH04a_hairDirectSpecular_B_MatCapToonHairTextures.jpg)
 
 ![CH04a_hairDirectSpecular_B_MatCapToonHairExample](../imgs/CH04a_hairDirectSpecular_B_MatCapToonHairExample.jpg)
+
+<br>
+
+<br>
+
+------
+
+### UV2固定位置缩放高光
+
+蓝色协议为了头发高光点搞得超麻烦的一种做法。
+
+![CH04a_hairDirectSpecular_D_SpecialSolution1](E:\WebsiteDev\ToonShadingCollection\imgs\CH04a_hairDirectSpecular_D_SpecialSolution1.png)
+
+![CH04a_hairDirectSpecular_D_SpecialSolution2](E:\WebsiteDev\ToonShadingCollection\imgs\CH04a_hairDirectSpecular_D_SpecialSolution2.png)
+
+他们的目标是让光点随着镜头距离而缩小，并不会根据镜头角度移动，整个过程也和法线无关，和一般人想实现的各向异性效果完全不同。但为了实现它，使用了UV2单独为这些高光元素准备UV，这并不是为了拉直UV，而是为了精度和留出可供缩放的空白区域。
+
+![CH04a_hairDirectSpecular_D_SpecialSolution3](E:\WebsiteDev\ToonShadingCollection\imgs\CH04a_hairDirectSpecular_D_SpecialSolution3.jpg)
+
+然后用一张RGBA控制图来处理。R通道是基本亮度，GB通道记录的是当前像素距离光斑中心点的距离值，A通道不明，有可能是缩放幅度。
+
+具体做法是，当渲染一个像素时，根据读取到的BG通道数据，和当前UV相加，得到光斑中心。然后反过来减这个BG值同时进行一个根据距离的缩放。数值放大的时候，光斑在视觉上就会缩小。
+
+这种做法可以确保光斑的边缘形状和R通道保持一致。
+
+但是离线生成这张图就要做不少工作，必须让人手动指定每个光点的中心然后生成控制图，而且在固定距离看，人物光斑其实并没有任何变化。
+
+但这种方式似乎是可以做和Normal挂钩的缩放的。一般做法不行，是因为光斑上每个像素点的Normal是不同的，根据Normal缩放的程度就不同，会导致光斑扭曲。但它这个方案，每个点都可以找到一个共同的中心点，只要使用这个中心点的Normal……
+
+对，我取不到这个点的Normal，所以不行。
+
+所以只能如此。
+
+**优点：** 
+
+- 虽然不能移动，但如果需求就要这样的话还算是一种独特的画风和处理方式，视觉上不易油腻。
+- 高光形状设计比较自由。
+
+**缺点：**
+
+- 高光整体位置不能移动。
+- 资源准备比较麻烦。
+- 算法比较奇葩。
 
 <br>
 

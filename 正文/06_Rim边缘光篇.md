@@ -206,7 +206,7 @@ float rimLightLength, float rimLightWidth, float rimLightFeather, float3 baseCol
 
 <br>
 
-据说蓝色协议也是用了这种等宽边缘光，但看下图左边头顶的边缘光倒是有点不均匀，怀疑是融合了一点传统点积边缘光算法。
+据说蓝色协议也是用了这种等宽边缘光，根据光照方向决定偏移距离。但看下图左边头顶的边缘光倒是有点不均匀，怀疑是融合了一点传统点积边缘光算法，不过也不一定，可能深度差上刚好就形成了这样的区域。
 
 ![CH06_Rim_E_MergeRim](../imgs/CH06_Rim_E_MergeRim.jpg)
 

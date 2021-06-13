@@ -58,6 +58,8 @@
 
 <br>
 
+<br>
+
 #### 水墨风笔触
 
 ![CH02_outline_A_OkamiOutline](../imgs/CH02_outline_A_OkamiOutline.jpg)
@@ -65,6 +67,8 @@
 直至目前比较成功的水墨渲染游戏有《大神》等。
 
 水墨风的渲染，主流的做法好像都是水墨风勾边+风格化贴图，光影方面似乎都非常简化。风格化勾边在描边章节有探讨，风格化贴图依靠美术人员能力。其它方面（如光影、后处理）的渲染风格化民间有很多尝试方案，请大家自行研究。
+
+<br>
 
 <br>
 
@@ -86,19 +90,23 @@
 
 <br>
 
+<br>
+
 #### 漫画笔触
 
 ![CH11_PaintingStyle_E_comicStyle](../imgs/CH11_PaintingStyle_E_comicStyle.png)
 
 漫画网点风也是可以尝试的方向。
 
-一种办法是在屏幕空间按灰度过滤出不同大小的网点。
+一种办法是在屏幕空间按灰度过滤出不同大小的网点。网点的形状不一定要圆形，可以自定义变化。
 
 除了网点，也可以更深入研究一下漫画中会运用的其它技巧。
 
 ![CH11_PaintingStyle_E_comicStyleTextures](../imgs/CH11_PaintingStyle_E_comicStyleTextures.png)
 
 ![CH11_PaintingStyle_E_comicStyleRendering](../imgs/CH11_PaintingStyle_E_comicStyleRendering.gif)
+
+<br>
 
 <br>
 
@@ -117,6 +125,22 @@
 更多实现细节请自行查找相关文章。
 
 注意这种屏幕后处理滤波的方式对性能要求略大。
+
+<br>
+
+下面是游戏11-11 Memories Retold的截图，据说是油画风格的反面例子。其实我觉得还算有那味儿，就是细节全部都糊了。
+
+单张图感觉实现的已经差不多了，但实际玩起来又是啥感觉？静态下OK的内容，动态下可不一定好。
+
+![CH11_PaintingStyle_F_OilPaintingStyleGame](E:\WebsiteDev\ToonShadingCollection\imgs\CH11_PaintingStyle_F_OilPaintingStyleGame.jpg)
+
+结论是，笔触化后处理不是不能用，而是不能直接照着现实中的画那样去用，应该把它当作一种创造画面的手段，而不是实现目标，因为目标效果动起来并不一定好。
+
+下面蓝色协议的SNN过滤器用法就还可以。
+
+这块涉足的较少，但擅加利用的话，或者能找到突破画质瓶颈/差异化的突破点。
+
+![CH11_PaintingStyle_F_OilPaintingStyleFilterSNN](E:\WebsiteDev\ToonShadingCollection\imgs\CH11_PaintingStyle_F_OilPaintingStyleFilterSNN.jpg)
 
 <br>
 
