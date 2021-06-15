@@ -116,13 +116,13 @@ UTS里使用视线空间法线采样matcap贴图做出假高光，法线贴图�
 
 蓝色协议为了头发高光点搞得超麻烦的一种做法。
 
-![CH04a_hairDirectSpecular_D_SpecialSolution1](E:\WebsiteDev\ToonShadingCollection\imgs\CH04a_hairDirectSpecular_D_SpecialSolution1.png)
+![CH04a_hairDirectSpecular_D_SpecialSolution1](../imgs/CH04a_hairDirectSpecular_D_SpecialSolution1.png)
 
-![CH04a_hairDirectSpecular_D_SpecialSolution2](E:\WebsiteDev\ToonShadingCollection\imgs\CH04a_hairDirectSpecular_D_SpecialSolution2.png)
+![CH04a_hairDirectSpecular_D_SpecialSolution2](../imgs/CH04a_hairDirectSpecular_D_SpecialSolution2.png)
 
 他们的目标是让光点随着镜头距离而缩小，并不会根据镜头角度移动，整个过程也和法线无关，和一般人想实现的各向异性效果完全不同。但为了实现它，使用了UV2单独为这些高光元素准备UV，这并不是为了拉直UV，而是为了精度和留出可供缩放的空白区域。
 
-![CH04a_hairDirectSpecular_D_SpecialSolution3](E:\WebsiteDev\ToonShadingCollection\imgs\CH04a_hairDirectSpecular_D_SpecialSolution3.jpg)
+![CH04a_hairDirectSpecular_D_SpecialSolution3](../imgs/CH04a_hairDirectSpecular_D_SpecialSolution3.jpg)
 
 然后用一张RGBA控制图来处理。R通道是基本亮度，GB通道记录的是当前像素距离光斑中心点的距离值，A通道不明，有可能是缩放幅度。
 

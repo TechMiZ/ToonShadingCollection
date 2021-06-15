@@ -132,7 +132,7 @@
 
 单张图感觉实现的已经差不多了，但实际玩起来又是啥感觉？静态下OK的内容，动态下可不一定好。
 
-![CH11_PaintingStyle_F_OilPaintingStyleGame](E:\WebsiteDev\ToonShadingCollection\imgs\CH11_PaintingStyle_F_OilPaintingStyleGame.jpg)
+![CH11_PaintingStyle_F_OilPaintingStyleGame](../imgs/CH11_PaintingStyle_F_OilPaintingStyleGame.jpg)
 
 结论是，笔触化后处理不是不能用，而是不能直接照着现实中的画那样去用，应该把它当作一种创造画面的手段，而不是实现目标，因为目标效果动起来并不一定好。
 
@@ -140,7 +140,7 @@
 
 这块涉足的较少，但擅加利用的话，或者能找到突破画质瓶颈/差异化的突破点。
 
-![CH11_PaintingStyle_F_OilPaintingStyleFilterSNN](E:\WebsiteDev\ToonShadingCollection\imgs\CH11_PaintingStyle_F_OilPaintingStyleFilterSNN.jpg)
+![CH11_PaintingStyle_F_OilPaintingStyleFilterSNN](../imgs/CH11_PaintingStyle_F_OilPaintingStyleFilterSNN.jpg)
 
 <br>
 

@@ -366,7 +366,7 @@ Siggraph的Pre-Integrated Skin Rendering做法是，在横向UV上使用NdotL，
 
 蓝色协议调整漫反射阴影效果的全套方案分析参考：
 
-![CH03_directDiffuse_H_DynamicRampArea](E:\WebsiteDev\ToonShadingCollection\imgs\CH03_directDiffuse_H_DynamicRampArea.jpg)
+![CH03_directDiffuse_H_DynamicRampArea](../imgs/CH03_directDiffuse_H_DynamicRampArea.jpg)
 
 逆光时亮部区域增大为70%来解决背部缺少光照的问题。
 
@@ -374,17 +374,17 @@ Siggraph的Pre-Integrated Skin Rendering做法是，在横向UV上使用NdotL，
 
 但这样做会导致亮部区域和自投影区域重叠了，那么它们实际上没有应用自投影？还是将自投影的Normal bais也一并扩大了？目前看，很可能是前者。但投影显然也是必须要有的，而他们用了固定的控制图和后处理阴影两种方式。
 
-![CH03_directDiffuse_H_NeckShadow](E:\WebsiteDev\ToonShadingCollection\imgs\CH03_directDiffuse_H_NeckShadow.jpg)
+![CH03_directDiffuse_H_NeckShadow](../imgs/CH03_directDiffuse_H_NeckShadow.jpg)
 
 上图的蓝色区域就是降低光照阈值的依据。在正面能够看到阴影，但是光照从下方发射时阴影就会消失。这个方案其实效果并没有真实投影好，既然这样做就说明并没有真实投影。
 
 正常的投影还是需要有的，只有正常的投影才能处理裙子投腿，头发投背这样的情景，虽然大部分情况自投影需要屏蔽，但只有一处用，也该有。而处理好屏蔽物体自投影的问题也可以做到不和70%亮部冲突，虽然确实麻烦。现在这样也是他们自己权衡后的结果吧。
 
-![CH03_directDiffuse_H_TwoLayerShade](E:\WebsiteDev\ToonShadingCollection\imgs\CH03_directDiffuse_H_TwoLayerShade.jpg)
+![CH03_directDiffuse_H_TwoLayerShade](../imgs/CH03_directDiffuse_H_TwoLayerShade.jpg)
 
 至于身体上标记的固定阴影区域，他们采用了差异不大时候融合，差异大时变得更暗的做法，让逆光时候也能看到这些阴影细节，不失为一个折中的好办法。
 
-![CH03_directDiffuse_H_FaceLightFixAngle](E:\WebsiteDev\ToonShadingCollection\imgs\CH03_directDiffuse_H_FaceLightFixAngle.jpg)
+![CH03_directDiffuse_H_FaceLightFixAngle](../imgs/CH03_directDiffuse_H_FaceLightFixAngle.jpg)
 
 一般天光其实都是顶光（为了生成较少的建筑阴影），所以直接打人脸上都会完蛋。蓝色协议是直接在人物身上将天光方向拉平了50%，也就是仰角最多45度。这样倒是有挺多好处的，而且可以回避在逆光时，巨乳会被顶光单独照亮的问题（也可用自投影解决）。
 
@@ -394,7 +394,7 @@ Siggraph的Pre-Integrated Skin Rendering做法是，在横向UV上使用NdotL，
 
 他们强调了因为贴图精度问题而没有使用法线纹理，所以暗部的定制只能用上面提到的固定暗部纹理来实现。头发上肯定用了（在发瓣边缘涂深），脸上用没用也不好说。
 
-![CH03_directDiffuse_H_RampColorSystem](E:\WebsiteDev\ToonShadingCollection\imgs\CH03_directDiffuse_H_RampColorSystem.jpg)
+![CH03_directDiffuse_H_RampColorSystem](../imgs/CH03_directDiffuse_H_RampColorSystem.jpg)
 
 通常情况，我们都是专门给一张暗部纹理来表示暗部的色指定，虽然不算麻烦但终究是一个美术工作量。但暗部到底应该是什么样的颜色其实是有规律的，对于纯色贴图尤其如此。
 

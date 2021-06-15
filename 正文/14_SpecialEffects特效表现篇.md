@@ -74,7 +74,7 @@ PBR的速度动态必然通过模糊来呈现，但卡通渲染其实和模糊�
 
 ### 不透明特效
 
-![CH14_SpecialEffects_D_OpaqueVFX1](E:\WebsiteDev\ToonShadingCollection\imgs\CH14_SpecialEffects_D_OpaqueVFX1.jpg)
+![CH14_SpecialEffects_D_OpaqueVFX1](../imgs/CH14_SpecialEffects_D_OpaqueVFX1.jpg)
 
 角色技能也在这硬扯一下吧。
 
@@ -84,9 +84,9 @@ PBR的速度动态必然通过模糊来呈现，但卡通渲染其实和模糊�
 
 通过体积模型载体的顶点移动，特效可以更有体积感，而非平面片状的感觉。
 
-![CH14_SpecialEffects_D_OpaqueVFX2](E:\WebsiteDev\ToonShadingCollection\imgs\CH14_SpecialEffects_D_OpaqueVFX2.jpg)
+![CH14_SpecialEffects_D_OpaqueVFX2](../imgs/CH14_SpecialEffects_D_OpaqueVFX2.jpg)
 
-![CH14_SpecialEffects_D_OpaqueVFX3](E:\WebsiteDev\ToonShadingCollection\imgs\CH14_SpecialEffects_D_OpaqueVFX3.png)
+![CH14_SpecialEffects_D_OpaqueVFX3](../imgs/CH14_SpecialEffects_D_OpaqueVFX3.png)
 
 一个使用不透明特效遇到的问题：多个特效叠加的时候特效遮挡太严重了。他们的方案是让特效移到远处有一个消隐的效果，应该是增加Cutout的值。
 
@@ -94,11 +94,17 @@ PBR的速度动态必然通过模糊来呈现，但卡通渲染其实和模糊�
 
 估计他们就是要坚持这种不透明特效的感觉。
 
-![CH14_SpecialEffects_D_OpaqueVFX4](E:\WebsiteDev\ToonShadingCollection\imgs\CH14_SpecialEffects_D_OpaqueVFX4.png)
+![CH14_SpecialEffects_D_OpaqueVFX4](../imgs/CH14_SpecialEffects_D_OpaqueVFX4.png)
 
 此外有一点，不透明特效还有个好处是对TAA更友好。TAA的帧间混合是基于深度的，处理透明物体很容易瞎，表现出来是移动镜头透明度变低。为了避免这个问题需要让透明物体也写速度buffer，但透明物体覆盖住的物体就不行了，而它这种AlphaTest为主的方式就没这问题。
 
 否则估计只能放弃TAA，那么高光边界就很难这么锐利而且没锯齿。那么就只能考虑模糊边界，或者想办法把MSAA开起来，延迟部分就不好办。方案选择会有不少变化。
+
+![CH14_SpecialEffects_D_OpaqueVFXBloom](../imgs/CH14_SpecialEffects_D_OpaqueVFXBloom.png)
+
+*↑罪恶装备的技能bloom效果*
+
+不透明特效配合bloom，在边缘处就会有透明感了。
 
 <br>
 
@@ -106,9 +112,23 @@ PBR的速度动态必然通过模糊来呈现，但卡通渲染其实和模糊�
 
 ------
 
+### 模型特效动画
 
+烟雾特效可以用流体动画做，但为了卡通表现力，也可以做骨骼动画，或在动画中每帧替换模型，当然工作量是递增的。
 
+![CH14_SpecialEffects_E_ModelFlipVFXAnimation1](../imgs/CH14_SpecialEffects_E_ModelFlipVFXAnimation1.png)
 
+![CH14_SpecialEffects_E_ModelFlipVFXAnimation2](../imgs/CH14_SpecialEffects_E_ModelFlipVFXAnimation2.jpg)
+
+*↑烟的效果是一帧一帧K的模型*
+
+![CH14_SpecialEffects_E_SkeletalVFXAnimation1](../imgs/CH14_SpecialEffects_E_SkeletalVFXAnimation1.jpg)
+
+*↑影子融化的特效模型，附加动作前的素体*
+
+![CH14_SpecialEffects_E_SkeletalVFXAnimation2](../imgs/CH14_SpecialEffects_E_SkeletalVFXAnimation2.png)
+
+*↑附加了动作完成版的影子溶解模型*
 
 <br>
 

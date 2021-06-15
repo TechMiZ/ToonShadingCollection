@@ -26,9 +26,13 @@
 - 资源量比较少
 - 方便做连续的表情动画
 
-![CH15a_FacialExpression_A_SkeletalExpressionAnimeStyle](E:\WebsiteDev\ToonShadingCollection\imgs\CH15a_FacialExpression_A_SkeletalExpressionAnimeStyle.jpg)
+![CH15a_FacialExpression_A_SkeletalExpressionAnimeStyle](../imgs/CH15a_FacialExpression_A_SkeletalExpressionAnimeStyle.jpg)
 
 蓝色协议的骨骼表情，骨骼特别多，应该是没有BlendShape做的快的，性能也很抱歉。估计只有在特写时才会开启，那样还行。
+
+![CH15a_FacialExpression_A_SkeletalExpressionGGX](../imgs/CH15a_FacialExpression_A_SkeletalExpressionGGX.jpg)
+
+还有罪恶装备也采用了骨骼动画方案做表情。
 
 <br>
 

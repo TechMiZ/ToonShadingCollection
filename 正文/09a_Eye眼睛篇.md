@@ -159,6 +159,10 @@ Stencil
 
 ![CH09a_Eye_C_SimplifiedEye2](../imgs/CH09a_Eye_C_SimplifiedEye2.png)
 
+![CH09a_Eye_C_SimplifiedEye3](../imgs/CH09a_Eye_C_SimplifiedEye3.png)
+
+![CH09a_Eye_C_SimplifiedEye4](../imgs/CH09a_Eye_C_SimplifiedEye4.png)
+
 <br>
 
 <br>

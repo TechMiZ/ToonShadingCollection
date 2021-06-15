@@ -187,7 +187,7 @@ Unity有免费插件Normal Painter等工具做手动修正，Maya自带法线传
 
 #### 变体1——压低光源角度法
 
-![CH03_directDiffuse_H_FaceLightFixAngle](E:\WebsiteDev\ToonShadingCollection\imgs\CH03_directDiffuse_H_FaceLightFixAngle.jpg)
+![CH03_directDiffuse_H_FaceLightFixAngle](../imgs/CH03_directDiffuse_H_FaceLightFixAngle.jpg)
 
 一般天光其实都是顶光（为了生成较少的建筑阴影），直接打人脸上都会完蛋。蓝色协议是直接在人物身上将天光方向拉平了50%，也就是仰角最多45度。
 

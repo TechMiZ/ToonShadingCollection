@@ -22,6 +22,58 @@
 
 <br>
 
+#### 模型变形
+
+罪恶装备的理念：漂亮的画面就是正义。
+
+为增加表现力，会非常规地调整模型骨骼。其中对设计好镜头的过场动画，还会进行不科学的调整。
+
+![CH15_Animation_A_ShapeManipulation1](../imgs/CH15_Animation_A_ShapeManipulation1.png)
+
+*↑为了加强纵深感，需要放大手部，因此拉伸手腕模型靠近镜头*
+
+![CH15_Animation_A_ShapeManipulation2](../imgs/CH15_Animation_A_ShapeManipulation2.png)
+
+*↑通过骨骼放大缩小，可以变出Q版2头身*
+
+![CH15_Animation_A_ShapeManipulation3](../imgs/CH15_Animation_A_ShapeManipulation3.png)
+
+*↑单独部位分轴进行骨骼缩放*
+
+<br>
+
+#### 模型替换
+
+对于毛发的形状变形，一般的骨骼系统实现不了，所以要准备替换部件。
+
+![CH15_Animation_A_ModelFlip](../imgs/CH15_Animation_A_ModelFlip.png)
+
+*↑头发变形的情况，准备了追加部件，来进行替换的样子*
+
+<br>
+
+#### 动画帧数
+
+一般都以为高质量动画必须高帧数，但其实还能有意地选择低帧数。
+
+为了营造表现力和打击感，罪恶装备故意采用了强硬的粗糙帧分布的动画。
+
+在Anime业界，把像迪士尼那样每秒24帧作画的动画称作[Full Animation]，同样是连续帧显示的，每秒8~12帧程度运动的通常称作[Limited Animation]。Limited Animation，和普通的3D图形的动画在制作风格有一些差异。
+
+一般的3D游戏图形的角色动画，是有对角色模型内部配置的骨头的轨道进行修正的印象。轨道的制作是使用高次曲线函数（F Curve），或者是基于动作捕捉取得的数据。
+
+与之对应的，罪恶装备是让角色一点点的运动，1帧1帧的姿势修正的做成。像粘土动画（clay animation）一样的流程。
+
+为此，要由动画师制作故事板，设计第几帧出拳、产生碰撞判断等。
+
+另外一方面，角色跳跃时产生的放射性轨迹的活动和运动的飞行道具等等的运动都是60fps来更新的。
+
+![CH15_Animation_A_LimitedFrameDesign](../imgs/CH15_Animation_A_LimitedFrameDesign.jpg)
+
+*↑必杀技相关的故事板，20帧记录了54帧的信息*
+
+<br>
+
 <br>
 
 ------
