@@ -48,7 +48,7 @@ Unity有免费插件Normal Painter等工具做手动修正，Maya自带法线传
 **注意：** 
 
 - 经过修改后的模型不能直接使用法线贴图，所以如果必须使用法线贴图，建议把修改过的法线储存到顶点色或UV上，这样不会影响其他的效果。
-- 模型布线要精细，区域布线需要有循环边保护、侧面分区等。
+- 模型布线要精细，区域布线需要有循环边保护、侧面分区等，本质是根据角色阴影走向来布线，这样也比较好控制阴影方向。
 
 <br>
 
@@ -101,6 +101,8 @@ Unity有免费插件Normal Painter等工具做手动修正，Maya自带法线传
 ### mask控制暗部强度
 
 通过一张面部的mask贴图来控制阴影的变化，使得阴影只在有限的区域（比如鼻子附近）中出现。当然，也可以使用顶点色来代替mask贴图的作用。
+
+还有种简化版，是先在ramp条计算上就把整体明暗分界点后移，整张脸处于亮部的区间更大，再压暗鼻子和下巴等细节，甚至可能永久压暗。战双是这个做法，甚至连鼻子下的阴影也不留，只卡了一段勾线表现鼻子。
 
 **优点：** 没法线修正麻烦。
 
@@ -207,3 +209,20 @@ Unity有免费插件Normal Painter等工具做手动修正，Maya自带法线传
 
 ------
 
+### 强行建模法
+
+介绍一种动画公司常用的技法。
+
+有的日本CGI动画公司使用的是另外的方式来实现想要的体积感和光影表现，就是通过反直觉的建模强行把3D模型进行扭曲，或者阴影颜色直接通过覆盖模型的方式进行制作。
+
+其实只要最终渲染的画面效果是对的那其实无论什么方法都可以。
+
+当然，考虑到面数、相机和光源的多角度变化，游戏中一般不会这么做，而是用上文和上章提到的办法替代。
+
+![CH03a_faceDirectDiffuse_G_DistortedModeling1](../imgs/CH03a_faceDirectDiffuse_G_DistortedModeling1.png)
+
+![CH03a_faceDirectDiffuse_G_DistortedModeling2](../imgs/CH03a_faceDirectDiffuse_G_DistortedModeling2.png)
+
+![CH03a_faceDirectDiffuse_G_DistortedModeling3](../imgs/CH03a_faceDirectDiffuse_G_DistortedModeling3.jpg)
+
+![CH03a_faceDirectDiffuse_G_DistortedModeling4](../imgs/CH03a_faceDirectDiffuse_G_DistortedModeling4.png)

@@ -22,6 +22,30 @@
 
 <br>
 
+#### 反向动力学
+
+
+
+![CH15_Animation_A_MMDIK](../imgs/CH15_Animation_A_MMDIK.png)
+
+*↑mikumikudance 里面的反向动力学骨骼的效果*
+
+当人物站在高度不一致的平面上时，左右脚会自动调整 y 的位置，并且带动大腿小腿同时调整。不仅脚部拥有这个特性，人物的手部也有。在爬山爬墙的时候，玩家的手总是能够 “自适应” 凹凸不平的表面。
+
+这都是反向动力学骨骼解算的结果。
+
+但是IK也不是什么时候都能出正确结果，而且性能消耗还大。原神也只在有限的情况下才应用IK。
+
+![CH15_Animation_A_GenshinLegIK](../imgs/CH15_Animation_A_GenshinLegIK.png)
+
+![CH15_Animation_A_GenshinArmIK](../imgs/CH15_Animation_A_GenshinArmIK.png)
+
+![CH15_Animation_A_GenshinFailedIK](../imgs/CH15_Animation_A_GenshinFailedIK.png)
+
+*↑这些算法并不是任何时候都能起作用*
+
+<br>
+
 #### 模型变形
 
 罪恶装备的理念：漂亮的画面就是正义。

@@ -22,9 +22,10 @@
 
 - 通用性较高，还适应捏脸
 - 脸部主体顶点序列不变
+- 方便做连续的表情动画
 - 重要角色可能要单独处理表情
 - 资源量比较少
-- 方便做连续的表情动画
+- 可能需要过多的骨骼才能实现漫画式的夸张表情
 
 ![CH15a_FacialExpression_A_SkeletalExpressionAnimeStyle](../imgs/CH15a_FacialExpression_A_SkeletalExpressionAnimeStyle.jpg)
 
@@ -71,7 +72,9 @@ Blend shape在CG制作动漫中非常常见，本质是修改网格顶点进行�
 
 ------
 
-### 表情相关建模问题
+### 特殊表情处理
+
+#### 特定建模方案
 
 ![CH15a_FacialExpression_D_FaceModelPlan](../imgs/CH15a_FacialExpression_D_FaceModelPlan.jpg)
 
@@ -82,6 +85,16 @@ Blend shape在CG制作动漫中非常常见，本质是修改网格顶点进行�
 还特殊一点的：颜艺，光影计算已经救不了了，需要另外用贴图或模型块面来制作。像是褶皱和嘴巴三角阴影，将一些常用小物件（汗、#）放在贴图中，在动画每帧中间插进去。国内基本不会做到这么细致。
 
 ![CH15a_FacialExpression_D_ExtremeExpression](../imgs/CH15a_FacialExpression_D_ExtremeExpression.jpg)
+
+<br>
+
+#### 相机视角专门变形
+
+三维的脸换一个角度就很容易跟理想的画面设定不一致，为了某个相机角度的视觉美观，甚至可以专门调整五官到物理错误的位置。不过这个办法需要镜头角度的配合，一般用在过场动画上。
+
+下图是罪恶装备角色一击必杀的剧情场景。一开始，制作的是从哪个方向看都说得过去的外表一样的表情，初期印象的设定图不同表现的地方很多。因此，驱动Rig，调整目鼻口的位置和角度。因为追求从摄像机里看的印象是要一样的，实现了角色有效果的演出。
+
+![CH15a_FacialExpression_D_DistortFaceForView](../imgs/CH15a_FacialExpression_D_DistortFaceForView.png)
 
 <br>
 
