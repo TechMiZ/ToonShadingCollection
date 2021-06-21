@@ -48,6 +48,12 @@
 
 <br>
 
+![CH04a_hairDirectSpecular_A_AnisoToonHairHonkai3MMD1](../imgs/CH04a_hairDirectSpecular_A_AnisoToonHairHonkai3MMD1.jpg)
+
+![CH04a_hairDirectSpecular_A_AnisoToonHairHonkai3MMD2](../imgs/CH04a_hairDirectSpecular_A_AnisoToonHairHonkai3MMD2.jpg)
+
+![CH04a_hairDirectSpecular_A_AnisoToonHairHonkai3MMD3](../imgs/CH04a_hairDirectSpecular_A_AnisoToonHairHonkai3MMD3.jpg)
+
 ![CH04a_hairDirectSpecular_A_AnisoToonHairHonkai3MMD](../imgs/CH04a_hairDirectSpecular_A_AnisoToonHairHonkai3MMD.jpg)
 
 *↑崩坏3角色MMD：对两层高光设有不同亮度和色相，这样使得高光层次更为丰富*
