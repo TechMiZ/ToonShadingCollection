@@ -64,6 +64,12 @@ Blend shape在CG制作动漫中非常常见，本质是修改网格顶点进行�
 
 如果对精度没有较高要求、数量也很有限的话，其实直接用贴图就是一种非常实惠的做法，例如>.<这些表情换张图就能很好搞定。贴图的局限性在于动态得通过帧动画的形式来做，数量较多的话还不如改模型。
 
+贴图表情可以放在脸上附加的面片上，也可以直接在面部材质上采样第二层贴图混合。
+
+![CH15a_FacialExpression_C_TextureFaceModel](../imgs/CH15a_FacialExpression_C_TextureFaceModel.png)
+
+*↑使用贴片的方法制作嘴巴和眼睛*
+
 贴图表情算是业界老黄历了，现存的可能就是Q版角色或特殊简化表情会用这种方案。这年头为了质量还是要老老实实和写实渲染一样去搞，不要想着用切换图片精灵的方法来做表情。
 
 <br>
@@ -82,7 +88,7 @@ Blend shape在CG制作动漫中非常常见，本质是修改网格顶点进行�
 
 崩坏将眼睛部分的脸部做了单独建模，估计是为了方便在特殊表情（比如 X.X）的时候更换眼睛模型。但也可以试试，与其这样将blendshape撕裂开两部分，倒不如在特殊表情的时候直接把一个单独模型盖在原来的眼睛上面（原模型这部分下陷避免穿帮），这样不影响默认表情，想换哪就换哪也更加自由。
 
-还特殊一点的：颜艺，光影计算已经救不了了，需要另外用贴图或模型块面来制作。像是褶皱和嘴巴三角阴影，将一些常用小物件（汗、#）放在贴图中，在动画每帧中间插进去。国内基本不会做到这么细致。
+还特殊一点的：颜艺。丰富表情导致的形状扭曲，如果用3D模型来表现这种效果，这需要非常细致的骨骼绑定才会还原得比较好。而且光影计算已经救不了了，需要另外用贴图或模型块面来制作。像是褶皱和嘴巴三角阴影，将一些常用小物件（汗、#）放在贴图中，在动画每帧中间插进去。国内基本不会做到这么细致。
 
 ![CH15a_FacialExpression_D_ExtremeExpression](../imgs/CH15a_FacialExpression_D_ExtremeExpression.jpg)
 
@@ -95,6 +101,38 @@ Blend shape在CG制作动漫中非常常见，本质是修改网格顶点进行�
 下图是罪恶装备角色一击必杀的剧情场景。一开始，制作的是从哪个方向看都说得过去的外表一样的表情，初期印象的设定图不同表现的地方很多。因此，驱动Rig，调整目鼻口的位置和角度。因为追求从摄像机里看的印象是要一样的，实现了角色有效果的演出。
 
 ![CH15a_FacialExpression_D_DistortFaceForView](../imgs/CH15a_FacialExpression_D_DistortFaceForView.png)
+
+如果是自由的摄像机角度，还可以考虑使用Blend Shape或其他方法事先把模型在各个摄像机角度的变形调节好，然后再通过实时运算来对齐效果。
+
+![CH15a_FacialExpression_D_ExtremeDistortFaceForSideView](../imgs/CH15a_FacialExpression_D_ExtremeDistortFaceForSideView.png)
+
+![CH15a_FacialExpression_D_DistortFaceForViewAnatomy](../imgs/CH15a_FacialExpression_D_DistortFaceForViewAnatomy.png)
+
+*↑扭曲修正前后对比*
+
+<br>
+
+贴片制作的五官会导致侧面会穿帮。许多游戏是使用贴片的方式来绘制五官的，这也需要对不同角度的五官面片进行换图和扭曲操作。
+
+![CH15a_FacialExpression_D_TexturedFaceForView1](../imgs/CH15a_FacialExpression_D_TexturedFaceForView1.png)
+
+*↑同一个状态下的正面图和侧面图对比*
+
+![CH15a_FacialExpression_D_TexturedFaceForView2](../imgs/CH15a_FacialExpression_D_TexturedFaceForView2.png)
+
+*↑通过位移扭曲和换图来修正效果*
+
+<br>
+
+#### 非对称性变形
+
+如果要表现一个角色丰富的情感，强调面部表情的非对称性是非常重要的，不然看起来会非常的不自然，这也是许多国内游戏或动画制作者的通病。这种调节，在日本动画中一般是作画监督来把控的。
+
+![CH15a_FacialExpression_D_SymmetricalExpression](../imgs/CH15a_FacialExpression_D_SymmetricalExpression.png)
+
+![CH15a_FacialExpression_D_AsymmetricalExpression](../imgs/CH15a_FacialExpression_D_AsymmetricalExpression.png)
+
+*↑非对称性调整后，表情更加自然、生动*
 
 <br>
 

@@ -28,9 +28,11 @@
 
 ![CH14_SpecialEffects_B_MotionBlur](../imgs/CH14_SpecialEffects_B_MotionBlur.jpg)
 
-PBR的速度动态必然通过模糊来呈现，但卡通渲染其实和模糊并不怎么兼容。当然模糊也可以用，就是没那么兼容而已。
+为了表现物体高速运动的速度感，物体表面的轮廓会发生类似于速度线的变形。
 
-一般会将高速运动的模型临时换成一张透明图，特效化。但其实也可以考虑用运动方向的顶点扰动来模拟。
+PBR的速度动态必然通过**模糊**来呈现，但卡通渲染其实和模糊并不怎么兼容。当然模糊也可以用，就是没那么兼容而已。
+
+一般会将高速运动的模型临时换成一张**透明图**，特效化。但其实也可以考虑用运动方向的**顶点扰动**来模拟。
 
 实现它如果能取到顶点的速度信息会方便很多，但在skinMesh里，因为缺乏公开API，想要获得这个信息必须用BakeMesh，效率太低。
 
@@ -39,6 +41,18 @@ PBR的速度动态必然通过模糊来呈现，但卡通渲染其实和模糊�
 反正也取不到速度图，直接从骨骼节点获得整个物体大概的速度和角速度，然后利用顶点上储存的mask信息，实现它也不失为一个方法，还可以通过角速度制作出拖影的弧线。
 
 ![CH14_SpecialEffects_B_MotionBlurAnatomy](../imgs/CH14_SpecialEffects_B_MotionBlurAnatomy.jpg)
+
+![CH14_SpecialEffects_B_MotionBlurAnatomy2](../imgs/CH14_SpecialEffects_B_MotionBlurAnatomy2.jpg)
+
+不过，使用着色器来对物体的顶点进行修改来实现类似的效果，对模型精度的要求比较高。如果表现大范围的扭曲，并且动得非常快的话表现力还可以。
+
+《罪恶装备》和《火影忍者》中使用的是**插入模型**的方式进行制作的。这种制作方式可以使用TA开发的DCC工具来进一步实现。
+
+![CH14_SpecialEffects_B_MotionBlurModelTechnic1](../imgs/CH14_SpecialEffects_B_MotionBlurModelTechnic1.png)
+
+![CH14_SpecialEffects_B_MotionBlurModelTechnic2](../imgs/CH14_SpecialEffects_B_MotionBlurModelTechnic2.jpg)
+
+![CH14_SpecialEffects_B_MotionBlurModelTechnicTool](../imgs/CH14_SpecialEffects_B_MotionBlurModelTechnicTool.jpg)
 
 <br>
 

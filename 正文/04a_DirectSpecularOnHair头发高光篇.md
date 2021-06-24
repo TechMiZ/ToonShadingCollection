@@ -84,7 +84,17 @@
 
 把每缕头发模型在垂直方向进行UW展开，以便高光可以沿着每根发束移动。然后从将每一缕从左侧向右侧填充0到1，用来标识动态生成的高光形状的起始和结束位置。使用几个曲线定义的模板来描述头发高光的基本形状，然后使用抖动噪声纹理来调制头发高光的粗细变化。材质方面有很多参数用来控制生成图案的形状，位置、偏移、宽度、抖动比例等，通过调整这些参数，可以根据需要获得各种不同的形状。
 
+![CH04a_hairDirectSpecular_A_AnisoToonHairComplicated0](../imgs/CH04a_hairDirectSpecular_A_AnisoToonHairComplicated0.jpg)
+
 ![CH04a_hairDirectSpecular_A_AnisoToonHairComplicated](../imgs/CH04a_hairDirectSpecular_A_AnisoToonHairComplicated.jpg)
+
+*↑米哈游分享的卡通化各向异性高光做法*
+
+![CH04a_hairDirectSpecular_A_AnisoToonHairComplicated1](../imgs/CH04a_hairDirectSpecular_A_AnisoToonHairComplicated1.jpg)
+
+![CH04a_hairDirectSpecular_A_AnisoToonHairComplicated2](../imgs/CH04a_hairDirectSpecular_A_AnisoToonHairComplicated2.jpg)
+
+*↑民间还原的米哈游分享效果*
 
 <br>
 
@@ -220,6 +230,10 @@ UTS里使用视线空间法线采样matcap贴图做出假高光，法线贴图�
 ### 永久加亮（偷懒办法）
 
 直接画在贴图上或者mask上，永久加亮高光区域，做成死高光，管它呢！
+
+甚至有的日本动画公司在为了表现头发固定的高光位置，依然使用了取巧的3D建模手段来实现，效果也还可以。
+
+![CH04a_hairDirectSpecular_E_LazySolution](../imgs/CH04a_hairDirectSpecular_E_LazySolution.png)
 
 <br>
 

@@ -10,7 +10,19 @@
 
 ------
 
-### 面部三角光
+### 效果概括融合
+
+通过《犬夜叉》动画可以看出，除了瞳孔或光滑表面有高光之外，其他地方很少会有高光，并且头发的各向异性高光和边缘光合在了一起。这个“合在一起”的操作就很灵性了，可以考虑技术还原这种高度概括的画风，也可以提炼更独特的简化方向并实现它们。
+
+![CH09_StylizedBodyParts_C_CustomStyleAnalysis](../imgs/CH09_StylizedBodyParts_C_CustomStyleAnalysis.jpg)
+
+<br>
+
+<br>
+
+------
+
+面部三角光
 
 ![CH09_StylizedBodyParts_A_NoseTriangleLightReference](../imgs/CH09_StylizedBodyParts_A_NoseTriangleLightReference.jpg)
 
@@ -50,7 +62,7 @@
 
 ![CH13_Shadow_C_SimplifiedAO](../imgs/CH13_Shadow_C_SimplifiedAO.png)
 
-*↑↑原神角色脸直接在固有色贴图上叠了一层淡淡的高光，位置还是鼻梁和嘴唇*
+*↑原神角色脸直接在固有色贴图上叠了一层淡淡的高光，位置还是鼻梁和嘴唇*
 
 <br>
 
@@ -58,19 +70,7 @@
 
 ------
 
-### 凸出位置高光叠色
-
-![CH09_StylizedBodyParts_C_CustomSkinHighlight](../imgs/CH09_StylizedBodyParts_C_CustomSkinHighlight.png)
-
-有的画风会在胸部、肩膀关节等部位的高光下叠一片粉色。
-
-<br>
-
-<br>
-
-------
-
-
+### 
 
 
 

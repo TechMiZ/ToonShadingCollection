@@ -306,6 +306,14 @@ Siggraph的Pre-Integrated Skin Rendering做法是，在横向UV上使用NdotL，
 
 <br>
 
+其实这一节探讨的内容跟传统赛璐璐动画的色指定机制异曲同工。这些色卡的颜色由艺术家按经验进行设计，可能是非物理真实的，但是这种颜色在色彩构成上会非常好看。并且在各种光照条件下的颜色变化都不相同（会根据预定的场景光照设计几套不同的光影色搭配方案），所以通过shader直接叠加灯光颜色或阴影颜色很难还原出来。
+
+![CH03_directDiffuse_F_CelAnimeColorPlan1](../imgs/CH03_directDiffuse_F_CelAnimeColorPlan1.png)
+
+![CH03_directDiffuse_F_CelAnimeColorPlan2](../imgs/CH03_directDiffuse_F_CelAnimeColorPlan2.png)
+
+<br>
+
 <br>
 
 ------
@@ -324,7 +332,7 @@ Siggraph的Pre-Integrated Skin Rendering做法是，在横向UV上使用NdotL，
 
 通常会借用Mask或顶点色的一个通道，作为类似AO的功能来使用，对光照计算的结果进行一些倾向性的修正，控制哪些区域更容易成为阴影，最终丰富明暗细节。
 
-这张mask可以纯粹用来压暗，也可以同时拥有压暗和提亮的功能，具体算法可以按需修改。常见的压暗位置有脖子、裆部、后脑勺等，常见的提亮位置有宝石等发光材质处。
+这张mask可以纯粹用来压暗，也可以同时拥有压暗和提亮的功能，具体算法可以按需修改。常见的压暗位置有脖子、下巴、裆部、后脑勺、布料内侧、裙摆起伏、其它衣褶、肌肉凹陷处等，常见的提亮位置有宝石等发光材质处。
 
 卡通角色渲染因为细节度要求远不如写实渲染，有时会为了性能而考虑不使用法线贴图，如果你的角色渲染方案决定如此，那么这个明暗mask的存在将会完全替代法线贴图的功用，为光照结果添加细节度。
 
@@ -336,9 +344,13 @@ Siggraph的Pre-Integrated Skin Rendering做法是，在横向UV上使用NdotL，
 
 #### 调整法线减少明暗细节
 
-根据模型顶点位置和拓扑关系计算出的法线可能会细节过度，表现在卡通渲染的结果上就是会出现许多多余的暗部细节，对此往往还需要配合美术针对具体模型进行法线修正。这体现了卡通画面的高度概括性。
+根据模型顶点位置和拓扑关系计算出的法线可能会细节过度，表现在卡通渲染的结果上就是会出现许多多余的暗部细节，对此往往还需要配合美术针对具体模型进行法线修正。
 
 修正的方法是使用模型法线转印/传递，给精细的模型一个近似的低精度代理（比如用一个球形代表模型的头部，用一个圆柱形代表模型的胳膊或者腿），然后用代理模型上附近顶点的法线作为原模型的法线来使用。
+
+还有一种自动化办法，吉普力工作室的《哈尔的移动城堡》的CG部分是把邻接的法线向量的平均值反复的求出，将法线向量的波动吸收，变的平坦化。
+
+本质是把每个三角面的方向信息变得粗略，光照结果的阴影也就变得粗略了。故意粗略化的阴影体现了卡通画面的高度概括性。
 
 ![CH03_directDiffuse_G_NormalTransferLegs](../imgs/CH03_directDiffuse_G_NormalTransferLegs.png)
 
@@ -414,15 +426,51 @@ Siggraph的Pre-Integrated Skin Rendering做法是，在横向UV上使用NdotL，
 
 ### 漫反射整体色彩与环境的统一
 
-![CH03_directDiffuse_G_TintShade](../imgs/CH03_directDiffuse_G_TintShade.jpg)
+动画里对人物的原始色指定配色，也不能直接融入场景环境，还是需要进一步调整，涉及了对角色整体叠加环境色、全屏后期调色等。
 
-![CH03_directDiffuse_G_DiffuseAmbientBlend](../imgs/CH03_directDiffuse_G_DiffuseAmbientBlend.jpg)
+![CH03_directDiffuse_G_AnimeCharacterEnvironmentBlend](../imgs/CH03_directDiffuse_G_AnimeCharacterEnvironmentBlend.png)
 
-按上述做法算出的多阶明暗漫反射结果，不一定能融入任意场景。要将卡通角色整体灵活地融入各种环境中、且跟其他角色统一，卡通渲染方案常见的做法是对漫反射的亮部和暗部（或自定义的更多阶层明暗区）分别动态叠加一层全局色（相当于亮部乘直接光颜色，暗部乘环境光颜色）。这个叠加计算不一定用简单一个乘法。
+*↑新海诚《天气之子》画面色彩调整过程*
+
+<br>
+
+同理，按上述做法算出的多阶明暗漫反射结果，不一定能融入任意场景。
+
+要将卡通角色整体灵活地融入各种环境中、且跟其他角色统一，卡通渲染方案常见的做法是对漫反射的亮部和暗部（或自定义的更多阶层明暗区）分别动态叠加一层全局色（相当于亮部乘直接光颜色，暗部乘环境光颜色）。
+
+这个叠加计算不一定用简单一个乘法，亮暗颜色也可以超越个位数的层改做渐变色之类的。
 
 注意这里的全局环境色往往会按漫反射色阶数分别指定单独的值，这就能够按美术需要，在各个场景中为角色明暗面排列组合出不同对比度、饱和度、色相。这也有利于特效的动态实现：电闪雷鸣情况下整个场景会产生刺眼的闪烁，那么人物身上也需要突变成高对比度的明暗效果；角色发动专属技能的颜色，也有必要对环境中各处的色调产生专门的影响。
 
 另外，也应该意识到我们设计的ramp贴图或指定的暗部色参数，必须与场景环境色脱钩。
+
+![CH03_directDiffuse_G_TintShade](../imgs/CH03_directDiffuse_G_TintShade.jpg)
+
+![CH03_directDiffuse_G_DiffuseAmbientBlend](../imgs/CH03_directDiffuse_G_DiffuseAmbientBlend.jpg)
+
+也可以参考写实渲染的算法，考虑到GI等，做更丰富的明暗部整体颜色变化……当然这已经超出漫反射范畴，留到以后讨论。
+
+这篇只谈到对漫反射的直接调整，其它更进一步让角色融入环境的办法，会在后面的屏幕后处理等章节讨论。
+
+<br>
+
+<br>
+
+------
+
+### 风格化的暗部处理
+
+在日本动画中的物体除了正常的暗部颜色，还有大部分的涂黑操作。例如海带影和BL影。海带影主要用于表现金属质感和浓重的明暗交界线，BL影主要是对人物的暗部进行概括涂黑，来表现一种逆光效果，视觉上看具有版画的质感。
+
+从技术上也可以考虑还原这些效果。不过个人觉得在现代游戏里可以直接还原金属效果就没必要用海带影表现金属了（真想要的话，就用反射贴图/高细节法线/更深暗部色实现？），而BL影可以通过上面的全局环境色方式设置高对比度的明暗环境色。
+
+![CH03_directDiffuse_I_AnimeStyleDarkSide1](../imgs/CH03_directDiffuse_I_AnimeStyleDarkSide1.png)
+
+*↑海带影*
+
+![CH03_directDiffuse_I_AnimeStyleDarkSide2](../imgs/CH03_directDiffuse_I_AnimeStyleDarkSide2.png)
+
+*↑BL影*
 
 <br>
 

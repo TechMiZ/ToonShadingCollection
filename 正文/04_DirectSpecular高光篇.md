@@ -98,6 +98,8 @@ fixed3 specular = smoothstep(-w, w, spec + _SpecularScale - 1)) * step(0.0001, _
 
 另外还有强度mask和大小mask用来控制高光。
 
+极端的情况是高光位置完全没有流动感觉了。
+
 <br>
 
 <br>
@@ -126,6 +128,12 @@ float NoH = max(0, dot(N, H));
 half specRamp = tex2D(_SpecularRamp, float2(NoH, _SpecularShininess)).r; //_SpecularShininess控制高光的锐利程度
 float3 specular = _SpecularColor * specRamp * _SpecularIntensity;
 ```
+
+其实内一层硬高光+外一层软高光是比较常见的高光画风（其实反过来外硬叠内软也行），当然这个某种程度上可以通过bloom做类似的溢出效果。
+
+有的画风会在胸部、肩膀关节等部位的高光下叠一片粉色，这也是软硬两层高光的做法。
+
+![CH09_StylizedBodyParts_C_CustomSkinHighlight](../imgs/CH09_StylizedBodyParts_C_CustomSkinHighlight.png)
 
 <br>
 
@@ -157,7 +165,7 @@ Stylized Highlights for Cartoon Rendering and Animation这篇论文给出了几�
 
 ![CH04_directSpecular_C_AnisotrophicHighlight](../imgs/CH04_directSpecular_C_AnisotrophicHighlight.jpg)
 
-以写实渲染的各向异性高光为基础，再进行卡通化调整，通常用在头发或者特殊金属上。
+以写实渲染的各向异性高光为基础，再进行卡通化调整，通常用在头发、丝绸、皮革、CD、羽毛、特殊金属等材质上。
 
 <br>
 
@@ -165,7 +173,7 @@ Stylized Highlights for Cartoon Rendering and Animation这篇论文给出了几�
 
 #### 综合案例
 
-下面碧蓝幻想截图这个高光不同方向的软硬度显得不太一样，如果不是因为加了单方向性的bloom效果或者跟底色压暗混淆了，难道是按方向分别做了羽化？或者用了MatCap？这效果也挺有创意。另外金属高光边缘的底色饱和度有增加，让总体色彩更丰富了。
+下面碧蓝幻想截图这个高光不同方向的软硬度显得不太一样，如果不是因为加了单方向性的bloom效果或者跟底色压暗混淆了，难道是按方向分别做了羽化？或者用了MatCap？或者将两层参数不同的高光叠加？这效果也挺有创意。另外金属高光边缘的底色饱和度有增加，让总体色彩更丰富了。
 
 ![CH04_directSpecular_C_CompositeHighlight](../imgs/CH04_directSpecular_C_CompositeHighlight.png)
 
@@ -201,7 +209,7 @@ Stylized Highlights for Cartoon Rendering and Animation这篇论文给出了几�
 
 #### 丝绸材质
 
-各向异性高光一般使用切线替代法线，但丝绸适合使用副法线，最好能叠三个高光层，每一层分别设置不同的颜色，以便最终材质看起来色彩层次较为丰富。
+各向异性高光一般使用切线替代法线，但丝绸适合使用副法线（也有说法是各向异性高光在unity里都应该用副法线而不是切线方向，待查），最好能叠三个高光层，每一层分别设置不同的颜色，以便最终材质看起来色彩层次较为丰富。
 
 ![CH04_directSpecular_D_SilkHighlightAnatomy](../imgs/CH04_directSpecular_D_SilkHighlightAnatomy.jpg)
 
