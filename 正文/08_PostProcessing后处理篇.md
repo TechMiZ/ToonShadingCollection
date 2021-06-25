@@ -210,9 +210,51 @@ Bloom使用高光提取，还可以偏移色相饱和度，这样对卡通渲染
 
 ------
 
+### 叠黑渐变
 
+![CH08_PostProcessing_C_AnimeAfterEffect1](../imgs/CH08_PostProcessing_C_AnimeAfterEffect1.jpg)
 
+这是动画常用的摄影后期特效，能把卡通角色和环境很好地融合起来。
 
+指的是上图左上角那块偏蓝的部分，有点类似屏幕暗角。在整个游戏里都始终存在存在，是蓝色协议的画面特色，也对其“动画感”的产生起到了很大的效用。
+
+![CH08_PostProcessing_C_AnimeAfterEffect2](../imgs/CH08_PostProcessing_C_AnimeAfterEffect2.jpg)
+
+![CH08_PostProcessing_C_AnimeAfterEffect3](../imgs/CH08_PostProcessing_C_AnimeAfterEffect3.jpg)
+
+*↑效果放大10倍的样子*
+
+这个效果基本是一个蓝色的变色遮罩，是一个软边的弧形，存在于屏幕上方，和太阳方向有关。
+
+其实说白了，就是一个画遮罩进行区域调色的后处理特效。如果走正常动画流程，这一步都是肯定有的。所以如果你想做出和动画差不多的画面，当然也应该走这个流程。而且，这个东西不能用光照代替，因为光照是HDR下的，而后处理特效是LDR的。而调色只有在LDR才是对的。
+
+它必须是一个后处理效果。但后处理效果一般不会再去画指定Mesh，只会给你一个参数调整工具，怎么设计这个效果就是个问题。
+
+蓝色协议的剧情动画部分之所以亮眼，也是因为有这种效果：
+
+![CH08_PostProcessing_C_AnimeAfterEffect4](../imgs/CH08_PostProcessing_C_AnimeAfterEffect4.jpg)
+
+无非就是各种遮罩圆的位置，硬软边。不太在乎性能是可能的。虽然他们什么都没说，只要知道是这是用后处理做的，就可以试试。只考虑固定过场是可以搞的。
+
+后处理也是可以调用管线内容画Mesh的，定制能力足够就行。要效果就不要纠结这点性能。
+
+<br>
+
+而原神的画面，就像是一个没有经过“摄影后期阶段”的动画。
+
+相比动画，它整整少了一个制作阶段，所以看上去才和动画不一样。
+
+所以假如把这个阶段加上去，必然可以大幅向着“像动画”这个方向前进。
+
+向影视界学习显然是一个性价比很高的改进方向。
+
+![CH08_PostProcessing_C_AnimeAfterEffect5](../imgs/CH08_PostProcessing_C_AnimeAfterEffect5.jpg)
+
+![CH08_PostProcessing_C_AnimeAfterEffect6](../imgs/CH08_PostProcessing_C_AnimeAfterEffect6.jpg)
+
+*↑原始背景叠人物 vs 最终背景叠人物*
+
+动画后期技术细节见：[动画摄影后期流程解密——Graphinica摄影杨晓牧采访](https://zhuanlan.zhihu.com/p/20202161)
 
 <br>
 
@@ -245,5 +287,4 @@ Bloom使用高光提取，还可以偏移色相饱和度，这样对卡通渲染
 <br>
 
 ------
-
 

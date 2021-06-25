@@ -268,7 +268,7 @@ Siggraph的Pre-Integrated Skin Rendering做法是，在横向UV上使用NdotL，
 
 <br>
 
-军团要塞2角色的明暗交界处有明显泛红的warpped diffuse效果，也可以视为次表面散射，时下流行的二次元手绘画风也常见这类明暗处理，当今二次元角色渲染吸收了这种效果，经常在ramp贴图的明暗交界处插入一段根据对应表面材质特性（如皮肤、暖色布料、冷色布料等）设计的高饱和度色相，不再是简单的赛璐璐明暗跳变。
+军团要塞2角色的明暗交界处有明显泛红的warpped diffuse效果（给红光更慢的衰减速率），也可以视为次表面散射，时下流行的二次元手绘画风也常见这类明暗处理，当今二次元角色渲染吸收了这种效果，经常在ramp贴图的明暗交界处插入一段根据对应表面材质特性（如皮肤、暖色布料、冷色布料等）设计的高饱和度色相，不再是简单的赛璐璐明暗跳变。
 
 ![CH03_directDiffuse_F_WarppedDiffuse](../imgs/CH03_directDiffuse_F_WarppedDiffuse.jpg)
 
