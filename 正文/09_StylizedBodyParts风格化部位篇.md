@@ -22,23 +22,21 @@
 
 ------
 
-面部三角光
+### 面部高光
+
+#### 三角光
 
 ![CH09_StylizedBodyParts_A_NoseTriangleLightReference](../imgs/CH09_StylizedBodyParts_A_NoseTriangleLightReference.jpg)
 
 ![CH09_StylizedBodyParts_A_NoseTriangleLightRealization](../imgs/CH09_StylizedBodyParts_A_NoseTriangleLightRealization.png)
 
-有些二次元手绘画风，有事没事都会在鼻梁边加一道一点也不科学的三角形“高光”，强调鼻子的立体感。
+有些二次元手绘画风，有事没事都会在鼻梁边加一道一点也不科学的三角形“高光”，强调鼻子的立体感，称为“面部三角光”。
 
 可以使用一张mask配合特别敏感的菲涅尔计算，实现脸稍稍侧过去就会出现三角光的效果。
 
 <br>
 
-<br>
-
-------
-
-### 脸部特殊高光
+#### 油光
 
 ![CH09_StylizedBodyParts_B_FaceHighlight](../imgs/CH09_StylizedBodyParts_B_FaceHighlight.png)
 
@@ -46,7 +44,7 @@
 
 <br>
 
-有些手绘漫画风是会给脸上点些高光。
+有些手绘漫画风是会给脸上特定位置点一些高光。
 
 这个高光的算法可以是传统高光，也可以魔改光源方向比如改成视线方向，也可以反向边缘光，做成正面永久可见。
 
@@ -56,9 +54,11 @@
 
 新樱花大战确实太油了，跟整体渲染方案也有关系。
 
+<br>
+
 ![CH09_StylizedBodyParts_B_FaceHighlightPositive](../imgs/CH09_StylizedBodyParts_B_FaceHighlightPositive.png)
 
-*↑战双的鼻梁和嘴唇高光，这就比较舒服（忽略右边脸的一层渐变加亮，自己加的）*
+*↑战双的鼻梁（偏三角光）和嘴唇高光，这就比较舒服（忽略右边脸的一层渐变加亮，自己加的）*
 
 ![CH13_Shadow_C_SimplifiedAO](../imgs/CH13_Shadow_C_SimplifiedAO.png)
 
