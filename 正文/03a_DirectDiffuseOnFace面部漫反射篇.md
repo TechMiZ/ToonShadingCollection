@@ -12,7 +12,79 @@
 
 *↑眼下三角*
 
-<br>大致有两种思路来修正面部：法线和阈值。
+<br>
+
+------
+
+### 面部阴影风格归纳
+
+做阴影修正之前，最好先确定什么样的光影符合卡通的表现特征。下面从动画和现实表现入手，盘点一下常规的面部阴影表现。
+
+<br>
+
+- #### 简化
+
+在动画中可以选择直接干掉阴影（除了头发投影），这种方式在光比相对较弱的环境中被广泛应用，不过这样面部就太平，一般会添加鼻尖线条、红晕之类的细节，下图中第一行的图片具有这种特征。
+
+而对于光比较大或者展示角色受光的情况下，会去画脸部边缘的阴影或高光，这种阴影的特征就是边缘平滑，贴合面部边缘形状。下图中第二行的图片体现了这种特征。
+
+![CH03a_faceDirectDiffuse_A_ShadeSimplification](../imgs/CH03a_faceDirectDiffuse_A_ShadeSimplification.jpg)
+
+<br>
+
+- #### 特征区域
+
+特征区域的光影表达，面部主要集中在鼻尖，眼底，唇低，眉头，这些区域是面部高光与阴影的表现的密集区，常常会画上高光或阴影等细节，有时也用于情绪的表现。下图也列举了部分动画中的表现。
+
+![CH03a_faceDirectDiffuse_A_ClassicalAreas](../imgs/CH03a_faceDirectDiffuse_A_ClassicalAreas.jpg)
+
+<br>
+
+- #### 伦勃朗光
+
+伦勃朗光是一种常见于肖像摄影的照明布局方式。最主要的特征是强调面部明暗对比，即高反差的光比。而卡通表现中经常使用到的是这种布光方式产生的阴影轮廓，这种轮廓最典型的特征就是一侧脸颊上产生的三角形的亮区。下图中即是这种布光的面部表现。
+
+![CH03a_faceDirectDiffuse_A_RembrandtLight](../imgs/CH03a_faceDirectDiffuse_A_RembrandtLight.jpg)
+
+在渲染中，实际上这种三角光是由面部的自阴影与自投影组合形成的，引擎中不采用直接打光的方式形成这种阴影的原因，一是阴影精度的问题，二是阴影的动态变化依旧不可控，在其他光照角度下很难有理想的阴影形状。
+
+面部的这种光影特征也是在动画中对三角区域做处理的依据，侧光下很多角色面部都会出现类似的特征。
+
+![CH03a_faceDirectDiffuse_A_ToonRembrandtLight](../imgs/CH03a_faceDirectDiffuse_A_ToonRembrandtLight.jpg)
+
+<br>
+
+- #### 其他形状
+
+当然面部光影的表现形式还有很多，类似下图。
+
+![CH03a_faceDirectDiffuse_A_SpecialShade](../imgs/CH03a_faceDirectDiffuse_A_SpecialShade.jpg)
+
+<br>
+
+- #### 动态变化
+
+在3D中还原面部阴影最麻烦的地方在于光照的动态变化。动画中的阴影是逐帧调整的，可以为了画面不讲道理，而在模型上的计算是要遵循规则的，所以需要概括出通用的变化特征，再为了达成目的使用各种Trick。下面两张图展示出大多数动画中的动态变化。
+
+![CH03a_faceDirectDiffuse_A_DynamicFaceShade1](../imgs/CH03a_faceDirectDiffuse_A_DynamicFaceShade1.gif)
+
+![CH03a_faceDirectDiffuse_A_DynamicFaceShade2](../imgs/CH03a_faceDirectDiffuse_A_DynamicFaceShade2.gif)
+
+另外也有画师做了不同角度面部光照的研究，挺有参考价值的，在这里一并贴出。光学核心写的《动画阴影化简》中不仅概括了面部特征，同时也有动画角色的整体阴影特征，十分推荐读一下。
+
+![CH03a_faceDirectDiffuse_A_VariousLightDirection1](../imgs/CH03a_faceDirectDiffuse_A_VariousLightDirection1.png)
+
+![CH03a_faceDirectDiffuse_A_VariousLightDirection2](../imgs/CH03a_faceDirectDiffuse_A_VariousLightDirection2.png)
+
+<br>
+
+<br>
+
+------
+
+<br>
+
+目前大致有两种思路来修正面部光影形态：法线和阈值。
 
 <br>
 
@@ -20,7 +92,7 @@
 
 ### 修正面部法线
 
-一是通过复制粘贴让某个区域内法线对齐一致，来实现像lowpoly一样的粗略阴影；二是使用简化的代理模型（包括但不限于球体）做法线传递，可以得到平滑的明暗变化。
+一是通过模型拓补适配阴影形状并使指定区域内法线对齐一致，来实现像lowpoly一样的粗略阴影；二是使用简化的代理模型（包括但不限于球体）做法线传递，可以得到平滑的明暗变化。
 
 Unity有免费插件Normal Painter等工具做手动修正，Maya自带法线传递的功能，3ds Max可以通过插件Noors Normal Thief实现法线传递的功能。在SP里还有Normal Convert Shader可以绘制法线图。
 
@@ -42,6 +114,7 @@ Unity有免费插件Normal Painter等工具做手动修正，Maya自带法线传
 - 对前期模型布线要求很高。
 - 环形布线必然产生三角结构，对表情适配可能有影响。
 - 难以处理复杂体块。
+- 会导致阴影产生跳变，即在两种阴影形态之间会快速切换。
 
  <br>
 
@@ -55,6 +128,10 @@ Unity有免费插件Normal Painter等工具做手动修正，Maya自带法线传
 ![CH03a_faceDirectDiffuse_B_NormalTransferProxy](../imgs/CH03a_faceDirectDiffuse_B_NormalTransferProxy.jpg)
 
 *↑火影忍者究极风暴，将人物的面部向外膨胀，再用膨胀后的面部法线传递回原模型*
+
+![CH03a_faceDirectDiffuse_B_NormalTransferProxySphere](../imgs/CH03a_faceDirectDiffuse_B_NormalTransferProxySphere.jpg)
+
+*↑常见的球体法线传递示例*
 
 ![CH03a_faceDirectDiffuse_B_NormalManualFix](../imgs/CH03a_faceDirectDiffuse_B_NormalManualFix.png)
 
@@ -106,7 +183,7 @@ Unity有免费插件Normal Painter等工具做手动修正，Maya自带法线传
 
 **优点：** 没法线修正麻烦。
 
-**缺点：** 有些角度可能还要磨合。
+**缺点：** 有些光照角度可能还要磨合。
 
 **注意：** 基于HalfLambert值来进行的调整，而HalfLambert本身就是NdotL，法线如果本身就很平滑的话调整起来会方便很多。
 
@@ -132,7 +209,7 @@ Unity有免费插件Normal Painter等工具做手动修正，Maya自带法线传
 
 原神使用的角色面部处理方法。
 
-美术先绘制出光线按纵轴旋转各角度的理想光影mask图，模型本身的 halfLambert 值不参与mask的制作流程。然后使用SDF距离场算法，融合各角度mask，最后生成一张过渡mask。要求只考虑水平方向的过渡，在计算 halfLambert 时 lightDir 和 normalDir 都只计算 xz 分量。
+美术先绘制出光线按纵轴旋转各角度的理想光影mask图，模型本身的 halfLambert 值不参与mask的制作流程。然后使用SDF有向距离场算法，融合各角度mask，最后生成一张过渡mask。通常只考虑水平方向的过渡，在计算 halfLambert 时 lightDir 和 normalDir 都只计算 xz 分量。
 
 <br>
 
@@ -143,7 +220,12 @@ Unity有免费插件Normal Painter等工具做手动修正，Maya自带法线传
 - 不需要再费力对齐法线，模型法线只产生一半的影响或完全不影响（根据算法），即便模型法线发生调整也没什么问题。
 - 可以把光照一直保持倾斜的角度的话，效果不错，也没有违和感。
 
-**缺点：** 并非所有细节可以完美手绘控制，只能照顾光照的左右旋转分量。
+**缺点：** 
+
+- 并非所有细节可以完美手绘控制，只能照顾光照的左右旋转分量。（理论上可以魔改，但美术要绘制的原始光影形态角度增多。）
+- 为了保证边缘信息准确，这张图不建议压缩。
+- 在一些情况下对软阴影支持比较差（一是会有色阶感，二在曲率不同与UV拉伸的区域会存在软硬交接的边缘）。
+- 面部形态差异较大的角色比较多时，UV拉伸导致一张mask很难通用，美术要单独订制的工作量增大，也限制了角色设计的自由发挥。
 
 <br>
 
@@ -156,6 +238,82 @@ Unity有免费插件Normal Painter等工具做手动修正，Maya自带法线传
 ![CH03a_faceDirectDiffuse_D_FacialShadowMaskTheory](../imgs/CH03a_faceDirectDiffuse_D_FacialShadowMaskTheory.jpg)
 
 *↑米哈游：绘制了光照角度在1°、10°、30°、60°、90°、120°、150°、180° 的图像*
+
+<br>
+
+#### SDF贴图制作方式
+
+整合一下目前已知的制作方式，会先放出相关链接，然后简要概述。
+
+<br>
+
+- ##### 帧间插值
+
+[雪涛：卡通脸部阴影贴图生成 渲染原理](https://zhuanlan.zhihu.com/p/389668800)
+
+大概过程是先绘制出不同光照角度的面部阴影形状，之后使用算法生成每张光照图的SDF，插值混合生成最终图像。
+
+![CH03a_faceDirectDiffuse_D_MakeSDF1](../imgs/CH03a_faceDirectDiffuse_D_MakeSDF1.jpg)
+
+<br>
+
+- ##### 等高线填充
+
+[【教程】使用csp等高线填充工具制作三渲二面部阴影贴图_哔哩哔哩_bilibili](https://link.zhihu.com/?target=https%3A//www.bilibili.com/video/BV16y4y1x7J1)
+
+与上述方式本质上相似，不过是利用了已有软件的功能。过程是先绘制出不同光照角度下面部阴影的边界线条，之后利用CSP的等高线填充功能，生成SDF。
+
+![CH03a_faceDirectDiffuse_D_MakeSDF2](../imgs/CH03a_faceDirectDiffuse_D_MakeSDF2.jpg)
+
+<br>
+
+- ##### 曲线融合变形
+
+[五行精灵：三渲二脸部阴影曲线，曲线融合变形算法 curve morph algorithm 开源](https://zhuanlan.zhihu.com/p/271220648)
+
+自动化的胜利，在houdini中拟合等高线的变化过程，同时生成高度图，获得SDF。
+
+![CH03a_faceDirectDiffuse_D_MakeSDF3](../imgs/CH03a_faceDirectDiffuse_D_MakeSDF3.jpg)
+
+<br>
+
+<br>
+
+------
+
+### 距离场+法线混合计算
+
+Cygames Tech Conference中赛马娘分享的方式，使用类似SDF的方式绘制特征区域，并配合修正法线后的光照结果，混合获得面部阴影。
+
+这种方式比单纯使用SDF的好处是：当阴影边界恰好在在面部可形变区域时（比如眼睛与嘴部），阴影边界不会因为面部变形而拉伸。另外还可以减少mask绘制工作量。细节调整一下甚至可以照顾到光源任意旋转角度的光影形态。
+
+![CH03a_faceDirectDiffuse_E_NormalWithSDF](../imgs/CH03a_faceDirectDiffuse_E_NormalWithSDF.jpg)
+
+![CH03a_faceDirectDiffuse_E_NormalWithSDF](../imgs/CH03a_faceDirectDiffuse_E_NormalWithSDF.gif)
+
+虽然分享中并没有说明具体怎么计算，不过有了这个思路，做出类似的效果并不是难事。
+
+具体还原示范见：[二次元角色卡通渲染—面部篇](https://zhuanlan.zhihu.com/p/411188212)
+
+<br>
+
+<br>
+
+------
+
+### MatCap方案
+
+面部光影也可以另辟蹊径使用Matcap思路。
+
+七大罪的技术分享中讲述了这种方式，作者在分享中讲到使用这种方式的原因：根据（动画）演出中非现实的阴影设定，比起物理事实更重视感情的传达。
+
+在大部分情况下卡通画面不需要保证光照的正确性，只要画面中的效果是感观舒适，就是可行的。所以在非动态光照下，使用Matcap表现角色的光影结构切分是非常简单并且效果还不错的方式——也就是说比较适于固定镜头过场动画中。
+
+![CH03a_faceDirectDiffuse_F_MatCapForFace](../imgs/CH03a_faceDirectDiffuse_F_MatCapForFace.jpg)
+
+下图是PPT中贴出的最简版的MatCap相关代码，而且MatCap采样也可以使用顶点色调整，屏蔽不需要的效果。
+
+![CH03a_faceDirectDiffuse_F_MatCapForFaceModification](../imgs/CH03a_faceDirectDiffuse_F_MatCapForFaceModification.jpg)
 
 <br>
 
@@ -173,15 +331,13 @@ Unity有免费插件Normal Painter等工具做手动修正，Maya自带法线传
 
 ------
 
-### 弃疗方案：动态光照
+### 弃疗方案：独立动态光照
 
 将光照方向跟场景光照方向解绑，完全跟随角色朝向和视角。光照有限视角方向，随着角色朝向偏移，但不超过30°夹角，角色转向较大时，再将光照插值变化为更好的角度。
 
 这个办法常用于选人界面。一般玩家不会发现或并不在意。
 
 而在世界场景中，可能要考虑将场景光源也跟着角色光源方向变化，也有的做法是永远从相机视角方向给角色打光、场景保持自己的静态光照方向。
-
-多人同屏时，整个场景的角色可能需要共用光照方向，避免视觉矛盾。
 
 如果不是为了面部光影的处理，谁会这么自讨苦吃地复杂化光照方案呢……
 
@@ -201,7 +357,7 @@ Unity有免费插件Normal Painter等工具做手动修正，Maya自带法线传
 
 也有观点认为：光源的方向垂直于视线方向就会把明暗部之间的强烈对比呈现出来，因此为了削弱对比就专门为脸部补一个光，光源是从观察者这边射出去的，或者加点自发光也行。
 
-不过这也只是稍微缓解了默认的面部阴影形状给人带来的不适感，并没有从本质上解决问题。
+不过这也只是稍微缓解了原生面部阴影形状给人带来的不适感，并没有从本质上解决问题。
 
 <br>
 
