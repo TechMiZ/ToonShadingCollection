@@ -1,6 +1,6 @@
 # Toon Shading Collection 
 
-## CH14 - Special Effects 特效表现
+## CH15a - Facial Expression 表情动画
 
 <br>
 
@@ -91,36 +91,6 @@ Blend shape在CG制作动漫中非常常见，本质是修改网格顶点进行�
 还特殊一点的：颜艺。丰富表情导致的形状扭曲，如果用3D模型来表现这种效果，这需要非常细致的骨骼绑定才会还原得比较好。而且光影计算已经救不了了，需要另外用贴图或模型块面来制作。像是褶皱和嘴巴三角阴影，将一些常用小物件（汗、#）放在贴图中，在动画每帧中间插进去。国内基本不会做到这么细致。
 
 ![CH15a_FacialExpression_D_ExtremeExpression](../imgs/CH15a_FacialExpression_D_ExtremeExpression.jpg)
-
-<br>
-
-#### 相机视角专门变形
-
-三维的脸换一个角度就很容易跟理想的画面设定不一致，为了某个相机角度的视觉美观，甚至可以专门调整五官到物理错误的位置。不过这个办法需要镜头角度的配合，一般用在过场动画上。
-
-下图是罪恶装备角色一击必杀的剧情场景。一开始，制作的是从哪个方向看都说得过去的外表一样的表情，初期印象的设定图不同表现的地方很多。因此，驱动Rig，调整目鼻口的位置和角度。因为追求从摄像机里看的印象是要一样的，实现了角色有效果的演出。
-
-![CH15a_FacialExpression_D_DistortFaceForView](../imgs/CH15a_FacialExpression_D_DistortFaceForView.png)
-
-如果是自由的摄像机角度，还可以考虑使用Blend Shape或其他方法事先把模型在各个摄像机角度的变形调节好，然后再通过实时运算来对齐效果。
-
-![CH15a_FacialExpression_D_ExtremeDistortFaceForSideView](../imgs/CH15a_FacialExpression_D_ExtremeDistortFaceForSideView.png)
-
-![CH15a_FacialExpression_D_DistortFaceForViewAnatomy](../imgs/CH15a_FacialExpression_D_DistortFaceForViewAnatomy.png)
-
-*↑扭曲修正前后对比*
-
-<br>
-
-贴片制作的五官会导致侧面会穿帮。许多游戏是使用贴片的方式来绘制五官的，这也需要对不同角度的五官面片进行换图和扭曲操作。
-
-![CH15a_FacialExpression_D_TexturedFaceForView1](../imgs/CH15a_FacialExpression_D_TexturedFaceForView1.png)
-
-*↑同一个状态下的正面图和侧面图对比*
-
-![CH15a_FacialExpression_D_TexturedFaceForView2](../imgs/CH15a_FacialExpression_D_TexturedFaceForView2.png)
-
-*↑通过位移扭曲和换图来修正效果*
 
 <br>
 
