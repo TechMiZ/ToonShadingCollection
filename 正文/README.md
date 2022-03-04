@@ -26,6 +26,7 @@
 14. [特效表现](/正文/14_SpecialEffects特效表现篇.md)
 15. [动画](/正文/15_Animation动画篇.md)
     - [表情动画](/正文/15a_FacialExpression表情动画篇.md)
+    - [FOV变形适应](/正文/15b_FitFOV视角适应篇.md])
 16. [建模要点探讨](/正文/16_Modeling建模要点篇.md)
 17. [管线优化](/正文/17_Pipeline管线篇.md)
 

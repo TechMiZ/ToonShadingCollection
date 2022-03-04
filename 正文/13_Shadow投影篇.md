@@ -355,5 +355,35 @@ Relink让这些Local光直接应用直线光的投影范围，解决了这个问
 
 ------
 
+### 一种面部投影问题与潜在伪光追解决方案
+
+最近遇到了角色面部在场景中接收投影的问题，就是无论自投影或外部物体向面部投影都几乎必然会破坏原先设计好的面部光影形状，因任意物体轮廓的随机性，基本就没有好看的结果。甚至连提高投影精度也拯救不了，不是物理问题而是美术问题。身体其它部位倒是不用讲究，只是脸太关键了。
+
+![CH13_Shadow_E_FaceProblem0](../imgs/CH13_Shadow_E_FaceProblem0.png)
+
+*↑虽然这里不是SDF控制的光影，但也拿来举例下，这样自由的阴影形状不光是自投影，外界任意物体都可能产生*
+
+这个问题好像很少被提到。大神的开源JTRP项目在做完面部光影mask+额发投影之后，就没考虑面部接受外界其它物体的投影，角色整个正面被遮挡时脸还是亮的，非常突兀，做MMD倒是够了，但放大世界里肯定不能放着不管。原神的角色不接受投影+树荫下无脑光影跳变方案，也是一刀切绕过了这个问题。
+
+![CH13_Shadow_E_FaceProblem](../imgs/CH13_Shadow_E_FaceProblem.png)
+
+对此，发现了一个也许可行的解决方案，源于[这个工程](https://github.com/SnutiHQ/Toon-Shader)：
+
+![CH13_Shadow_E_FakeRayShadowExample](../imgs/CH13_Shadow_E_FakeRayShadowExample.gif)
+
+思路是从物体中心向光源位置发出射线，检测到碰撞体的话就在shader中直接整体渐变压暗相应光源的亮度，移出碰撞体时则渐变恢复光源亮度。算是一种极简版光追。
+
+![CH13_Shadow_E_FakeRayShadowLocalTest](../imgs/CH13_Shadow_E_FakeRayShadowLocalTest.gif)
+
+如果用在面部，就等于整张脸一起压暗，不会给面部光影叠加不可控的无规则投影形状。
+
+没时间测，就提一嘴可能性。
+
+<br>
+
+<br>
+
+------
+
 
 
