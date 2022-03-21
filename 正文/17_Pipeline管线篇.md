@@ -94,3 +94,19 @@ SSR和SSAO等一些屏幕后处理效果，在HDRP高清晰渲染管线下可以
 
 ------
 
+### 经典方案
+
+罪恶装备：
+
+Rendering(渲染)方式是一般的Forward（前渲染），没有使用近些年流行的Deferred(延迟渲染)的方式。Deferred是处理大量光源时有效的手法，但Anime调的"2D风格"是不需要的。
+
+但是，为了提前Culling的Zbuffer Rendering（※Z-Prepass。先得到深度值）是有实行的。总之，所有的3D模型对应的几何体渲染(Geometry Rendring)最少也要运行2次。而且，对角色来说，为了附加上Anime风格的轮廓线，还要追加一次几何体渲染。
+
+1个场景大约总的Texture容量是160MB以下，1个场景大概的Shader Program总数，Vertex Shader60~70个左右，Pixel Shader70~80个左右。
+
+<br>
+
+<br>
+
+------
+

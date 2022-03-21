@@ -118,6 +118,8 @@ float rimLightLength, float rimLightWidth, float rimLightFeather, float3 baseCol
 
 还可以按需要结合使用全包边和侧边光。
 
+动画中的边缘光更偏向软硬两层边缘光混合的情况。
+
 <br>
 
 #### 按画风与氛围？
@@ -139,8 +141,6 @@ float rimLightLength, float rimLightWidth, float rimLightFeather, float3 baseCol
 面部边缘光主要有两种，侧视时的边缘以及正视时的左右两侧边缘，可以使用SDF或深度边缘光或边缘检测的方式来制作。也可能靠调整漫反射达到边缘照亮的效果。
 
 ![CH06_Rim_B_FaceRim](../imgs/CH06_Rim_B_FaceRim.jpg)
-
-<br>
 
 <br>
 
@@ -243,13 +243,15 @@ float rimLightLength, float rimLightWidth, float rimLightFeather, float3 baseCol
 
 这个跟几何外扩描边法异曲同工，只是方向相反，且需要深度pass和深度缓冲的辅助，而非新增勾边pass。说到底，这也可以用于勾边。
 
-这个方法在大块绝对平面上还会有点瑕疵，但一般游戏角色不会做出大面积平面，实在有必要也可以配合经典边缘光算法修饰一下。
+这个方法在大块绝对平面上还会有点瑕疵，但一般游戏角色不会做出大面积平面，实在有必要也可以配合经典边缘光算法修饰一下。另外这对于一些转折比较少的模型，比如立方体的支持会更好一点。
 
 另外也可以完全转换成后处理边缘检测勾边的思路做等宽边缘光，不过算子采样次数会增加。
 
 ![CH06_Rim_E_GenshinRim1](../imgs/CH06_Rim_E_GenshinRim1.jpg)
 
 ![CH06_Rim_E_GenshinRim2](../imgs/CH06_Rim_E_GenshinRim2.jpg)
+
+![CH06_Rim_E_GenshinRim3](../imgs/CH06_Rim_E_GenshinRim3.png)
 
 <br>
 

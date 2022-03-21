@@ -4,15 +4,23 @@
 
 ## CH02 - Outline 描边/勾边
 
+描边也叫轮廓边，早期描边主要的作用是补充动画中色块的细节，把转折的结构表现出来，所以这个时候描边叫做轮廓边会更合适一点。另外轮廓边并不一定是黑色的，在动画的场景中轮廓边大多以亮线的高光形态来表示，就像右图中的亮线勾边一样，人物上则一般是以黑色的轮廓线偏多一点。
+
+![CH02_outline_0_OutlinePurpose1](../imgs/CH02_outline_0_OutlinePurpose1.png)
+
+然后到现在的描边除了强调主体这样的用途之外，更多的就是承载风格化表现的特征了。像《无主之地》这种就是直接将描边作为自身的风格。
+
+![CH02_outline_0_OutlinePurpose2](../imgs/CH02_outline_0_OutlinePurpose2.png)
+
+边缘的物理本质——深度或法线上不连续的位置。
+
+描边主要分为外描边和内描边。因为很难找到一种方法同时实现良好的内外描边效果，所以通常需要采用多种描边方法配合。
+
 ![CH02_outline_01_GravityDazeOutline](../imgs/CH02_outline_0_GravityDazeOutline.jpg)
 
 *↑来自《GRAVITY DAZE重力眩暈》：角色模型的画线是背面膨胀法，背景的勾边是后处理实现的。*
 
 <br>
-
-边缘的本质——深度或法线上不连续的位置。
-
-因为很难找到一种方法同时实现良好的内外描边效果，所以通常需要采用多种描边方法配合。
 
 <br>
 
@@ -274,6 +282,16 @@
 
 <br>
 
+#### 外描边方案选择思路参考
+
+![CH02_outline_E_OuterOutlineChoice](../imgs/CH02_outline_E_OuterOutlineChoice.png)
+
+在绘制描边的时候可以拿到材质属性，就比较便于我们对这个描边进行精确的控制。我们可以控制这个描边的粗细和颜色，对角色这种描边要求比较高的东西，会更加合适一些。
+
+然后Sobel算子的边缘检测，像是有很多物体的场景，能够一次性把他们全都给描了。处理场景描边更合适一点。当然这个事也不是绝对的，人物描边同样也可以采用Sobel算子的边缘检测，根据我们的项目需要来选择就好了。
+
+<br>
+
 <br>
 
 ------
@@ -465,7 +483,7 @@
 
 <br>
 
-- #### 基于笔刷
+- #### 基于笔刷/模型拓补的轮廓边缘检测
 
 运行时提取模型边缘信息并计算轮廓线。通常分为以下几步：
 
@@ -489,6 +507,8 @@
 **常见应用场合：**常用于离线渲染，例如Pencil+、blender里Freestyle render渲染器便是基于这个方法实现的。可以用于CG品质渲染，但不适合直接在游戏中使用。
 
 ![CH02_outline_G_BrushBasedOutline](../imgs/CH02_outline_G_BrushBasedOutline.jpg)
+
+![CH02_outline_G_ContourOutline](../imgs/CH02_outline_G_ContourOutline.png)
 
 <br>
 

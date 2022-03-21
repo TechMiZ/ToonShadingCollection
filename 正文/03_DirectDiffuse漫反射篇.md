@@ -87,6 +87,14 @@ return BandedNL;
 
 <br>
 
+##### ——明暗交界线偏色
+
+阶跃函数用两个Smoohstep，一正一反相乘，就可以求得中间明暗交界的位置，然后填充颜色。或者也可以使用高斯函数，也叫正态分布函数来选中明暗交界线区域过渡的位置。
+
+![CH03_directDiffuse_C_TeminatorLineFunction](../imgs/CH03_directDiffuse_C_TeminatorLineFunction.png)
+
+<br>
+
 ##### ——多色阶羽化
 
 顺便看看多色阶的羽化算法。
@@ -130,7 +138,7 @@ inline fixed4 LightingToon(SurfaceOutput s, half3 lightDir, half3 viewDir, half 
 
 - #### Ramp贴图映射柔化
 
-除了以上的使用系数的实现方法，我们也可以使用RampTexture来达到这一效果。
+除了以上的使用系数的实现方法，我们也可以使用RampTexture（又称LUT查找表）来达到这一效果。
 
 ![CH03_directDiffuse_D_HalfLambertRamp](../imgs/CH03_directDiffuse_D_HalfLambertRamp.jpg)
 
@@ -264,15 +272,21 @@ Siggraph的Pre-Integrated Skin Rendering做法是，在横向UV上使用NdotL，
 
 鉴于最近的业界趋势，本文倚重的日式卡通渲染早已不限于基本的Cell Shading，我们可以从中发现美式卡通渲染起家的Tone Based Shading思想的融入，如明暗交界处的柔化和ramp采样的色调变化。这里讲讲明暗色彩的简单设计思路。
 
-明暗色调一般遵循的美术规律是：亮部偏暖色、暗部偏冷色。设计暗面颜色时可以由暖色调转冷色调的思路入手，当然这也不绝对。
+明暗色调一般遵循的美术规律是：亮部偏暖色、暗部偏冷色。这样的话，角色的亮面跟暗面的色调对比更加强烈，看起来卡通感会更强。设计暗面颜色时可以由暖色调转冷色调的思路入手，当然这也不绝对。
 
 <br>
 
-军团要塞2角色的明暗交界处有明显泛红的warpped diffuse效果（给红光更慢的衰减速率），也可以视为次表面散射，时下流行的二次元手绘画风也常见这类明暗处理，当今二次元角色渲染吸收了这种效果，经常在ramp贴图的明暗交界处插入一段根据对应表面材质特性（如皮肤、暖色布料、冷色布料等）设计的高饱和度色相，不再是简单的赛璐璐明暗跳变。
+明暗交界线是动画中经常会出现的特征，这是绘画中常见的处理。基于这些特征，不少画师会在明暗交界线上做特殊的偏色处理，动画中也都有体现，在物理的渲染中比较接近这些效果的是SSS表面散射，这一表现可以看作是对SSS的夸张。
+
+![CH03_directDiffuse_F_TeminatorLineConcept](../imgs/CH03_directDiffuse_F_TeminatorLineConcept.png)
+
+军团要塞2角色的明暗交界处有明显泛红的warpped diffuse效果（给红光更慢的衰减速率），也可视为一种体现。
 
 ![CH03_directDiffuse_F_WarppedDiffuse](../imgs/CH03_directDiffuse_F_WarppedDiffuse.jpg)
 
 *↑军团要塞2角色的明暗交界处有明显泛红的warpped diffuse效果*
+
+当今二次元角色渲染吸收了这种效果，经常在ramp贴图的明暗交界处插入一段根据对应表面材质特性（如皮肤、暖色布料、冷色布料等）设计的高饱和度色相，不再是简单的赛璐璐明暗跳变。
 
 ![CH03_directDiffuse_F_GenshinRampEdge](../imgs/CH03_directDiffuse_F_GenshinRampEdge.png)
 
@@ -311,6 +325,18 @@ Siggraph的Pre-Integrated Skin Rendering做法是，在横向UV上使用NdotL，
 ![CH03_directDiffuse_F_CelAnimeColorPlan1](../imgs/CH03_directDiffuse_F_CelAnimeColorPlan1.png)
 
 ![CH03_directDiffuse_F_CelAnimeColorPlan2](../imgs/CH03_directDiffuse_F_CelAnimeColorPlan2.png)
+
+<br>
+
+在日式的漫画里面，他们把这个物体因为处于背阴面而显示的比较暗的区称为阴。把因为物体阻挡了光线而产生的投影，称为影。
+
+一个说法是，在卡通渲染里面这个阴和影的颜色应该要保持一致。
+
+![CH03_directDiffuse_F_ShadeColorConsistancy](../imgs/CH03_directDiffuse_F_ShadeColorConsistancy.png)
+
+我们看中间这张图，它的阴和影的颜色是一致的，这张图的色调会更加的干净。看起来就会比右边这张阴和影的颜色不一致的的贴图，显示的光感会更好，也更加的卡通。
+
+但个人认为可以变通，毕竟前文也有提到二阶暗色的配置，双色调的阴影色也可能有风格感，只是明度不要太低。
 
 <br>
 
