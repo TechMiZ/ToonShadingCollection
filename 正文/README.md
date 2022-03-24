@@ -20,6 +20,7 @@
 9. [特殊风格化部位](/正文/09_StylizedBodyParts风格化部位篇.md)
    - [眼睛](/正文/09a_Eye眼睛篇.md)
 10. [更多材质效果（半透明等）](/正文/10_MoreMaterials更多材质篇.md)
+    - [综合材质分析模拟思路](/正文/10a_MaterialAnalysis综合材质分析篇.md)
 11. [画风多元化（手绘等）](/正文/11_PaintingStyle画风多元化篇.md)
 12. [打光/多光源](/正文/12_Lighting打光篇.md)
 13. [投影方案](/正文/13_Shadow投影篇.md)
