@@ -129,6 +129,10 @@ half specRamp = tex2D(_SpecularRamp, float2(NoH, _SpecularShininess)).r; //_Spec
 float3 specular = _SpecularColor * specRamp * _SpecularIntensity;
 ```
 
+这类似于真实感皮肤渲染中的双镜叶高光。双镜叶高光就是将不同粗糙度下GGX高光混合，然后用于模拟真实皮肤表面的高光反射效果的。
+
+![CH04_directSpecular_E_DualLobeSpecular](../imgs/CH04_directSpecular_E_DualLobeSpecular.png)
+
 其实内一层硬高光+外一层软高光是比较常见的高光画风（其实反过来外硬叠内软也行），当然这个某种程度上可以通过bloom做类似的溢出效果。
 
 有的画风会在胸部、肩膀关节等部位的高光下叠一片粉色，这也是软硬两层高光的做法。

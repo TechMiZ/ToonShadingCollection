@@ -210,7 +210,31 @@ Bloom使用高光提取，还可以偏移色相饱和度，这样对卡通渲染
 
 ------
 
-### 叠黑渐变
+### 动画摄影后期
+
+在日本动画制作过程当中会加入很多后期效果，这些后期效果可以提升角色跟场景的光感，也包括一些模糊的景深效果。这些效果在日本动画流程里面被称为动画摄影，像这里面演示的Flare跟Para的效果，就能够提升角色光感或者是说空气感。
+
+<br>
+
+#### Flare发光渐变
+
+![CH08_PostProcessing_C_AnimeAfterEffectFlare1](../imgs/CH08_PostProcessing_C_AnimeAfterEffectFlare1.png)
+
+首先讲一下Flare。Flare的话实际上是模拟了一个正上方的光照，让场景和角色有一种受光的感觉，你可以理解成叠加了一层发光的遮罩，它是对原始颜色进行了一次叠加。
+
+![CH08_PostProcessing_C_AnimeAfterEffectFlare2](../imgs/CH08_PostProcessing_C_AnimeAfterEffectFlare2.png)
+
+《赛马娘》里有加入这种Flare的效果。可以看到加入这个效果之后，角色的光感提升了非常多。
+
+![CH08_PostProcessing_C_AnimeAfterEffectFlare3](../imgs/CH08_PostProcessing_C_AnimeAfterEffectFlare3.png)
+
+<br>
+
+#### Para叠黑渐变
+
+![CH08_PostProcessing_C_AnimeAfterEffectPara1](../imgs/CH08_PostProcessing_C_AnimeAfterEffectPara1.png)
+
+Pare跟Flare是反过来的，Flare是加了一个光感，Para是加了一个阴影感。它模拟阴影，就像叠加了一层深色的遮罩，对原始颜色进行相乘。
 
 ![CH08_PostProcessing_C_AnimeAfterEffect1](../imgs/CH08_PostProcessing_C_AnimeAfterEffect1.jpg)
 
@@ -230,7 +254,7 @@ Bloom使用高光提取，还可以偏移色相饱和度，这样对卡通渲染
 
 它必须是一个后处理效果。但后处理效果一般不会再去画指定Mesh，只会给你一个参数调整工具，怎么设计这个效果就是个问题。
 
-蓝色协议的剧情动画部分之所以亮眼，也是因为有这种效果：
+蓝色协议的剧情动画部分之所以亮眼，也是因为加上了Flare跟Para效果，画面的光感或者说是空气感就明显更加的强烈了：
 
 ![CH08_PostProcessing_C_AnimeAfterEffect4](../imgs/CH08_PostProcessing_C_AnimeAfterEffect4.jpg)
 
@@ -262,9 +286,71 @@ Bloom使用高光提取，还可以偏移色相饱和度，这样对卡通渲染
 
 ------
 
+### Tone Mapping
+
+我们做HDR的话，经常需要做ToneMapping。现在主流的是ACES ToneMapping。
+
+后处理中的ToneMapping，这是HDR数据映射到LDR的过程，因为LDR显示设备只能显示0到1区间的色彩值，所以为了将计算中大于1的色彩值完整显示出来，这就需要一条在正无穷上收敛在1的曲线来映射。
+
+图中的绿色的曲线，就是ACES的映射曲线。
+
+![CH08_PostProcessing_D_ToneMapping1](../imgs/CH08_PostProcessing_D_ToneMapping1.png)
+
+它有一个问题，就是它会让这个物体发光越亮的地方，颜色就越偏于白色，其次它会导致画面的饱和度下降。
+
+![CH08_PostProcessing_D_ToneMapping2](../imgs/CH08_PostProcessing_D_ToneMapping2.png)
+
+那么可以看到一个对比，就是使用了ACES ToneMapping之后，整个画面的饱和度似乎都出现了下降，这就与我们追求高饱和度的卡通渲染不是非常相符。
+
+![CH08_PostProcessing_D_ToneMapping3](../imgs/CH08_PostProcessing_D_ToneMapping3.png)
+
+ACES映射曲线极限是1.03，就相当于把0到正无穷的数据映射到了0到1.03上，但是这就将原有的0到1的色彩值映射到了0到0.8的区间上，这对卡通渲染的表现来说是比较致命的，特别是在肤色上。
+
+右图中就是将肤色经过ACES曲线处理的结果，这种色彩变化是卡通渲染不能接受的，所以一般会去修改ACES曲线的多项式值，去降低ToneMapping映射的影响。
+
+![CH08_PostProcessing_D_ToneMapping4](../imgs/CH08_PostProcessing_D_ToneMapping4.png)
+
+蓝色的曲线就是一种修正后的结果，然后可以看到压缩1到正无穷高亮度值的显示区间，可以稍微缓解一部分色彩表现。所以在项目中后处理的色彩表现就要在制作的早期就要预先开始进行评估。
+
+![CH08_PostProcessing_D_ToneMapping5](../imgs/CH08_PostProcessing_D_ToneMapping5.png)
+
+然后这里就是ACES映射曲线修改前后的区别，魔改的映射曲线可以纠正一部分皮肤发灰的问题，上面这张图和下面这张图的是对比。
+
+![CH08_PostProcessing_D_ToneMapping6](../imgs/CH08_PostProcessing_D_ToneMapping6.png)
+
+关于如何修改SRP里面的ToneMapping算法，再具体给大家讲一下，怎么修改Unity引用的package包。
+
+![CH08_PostProcessing_D_ToneMapping7](../imgs/CH08_PostProcessing_D_ToneMapping7.png)
+
+Unity的package包都放在Library\PackageCache路径下面，这个路径下面的包是受到Unity管理的，如果我们对它进行修改的话，Unity就会把我们的修改回滚掉。所以，我们需要把这个包拷贝出来，比如说拷贝到Assets目录的同级目录。
+
+Package路径下面有一个叫做manifest.json文件，在这里面我们可以直接指定我们使用包的文件路径。在这里设置为我们拷贝的路径之后，我们就可以对它进行修改了，这个时候Unity就不会回滚修改。
+
+![CH08_PostProcessing_D_ToneMapping8](../imgs/CH08_PostProcessing_D_ToneMapping8.png)
+
+我们对SRP Core里的ACES.hlsl文件进行修改，把其中的两个FACTOR变量 +0.2，然后我们看一眼效果。修改以后的效果就是右边这张图，可以看到应用了ToneMapping之后，颜色饱和度也没有下降。
+
+![CH08_PostProcessing_D_ToneMapping9](../imgs/CH08_PostProcessing_D_ToneMapping9.png)
+
+我们再看一眼应用于角色上的效果，这几个人物的颜色饱和度也保持了我们使用ToneMapping之前的饱和度。
+
+![CH08_PostProcessing_D_ToneMapping10](../imgs/CH08_PostProcessing_D_ToneMapping10.png)
+
+当然这个修改就很tricky，不一定对。
+
+这里主要也是想给大家抛砖引玉，说一下卡通渲染对于ToneMapping是有特殊要求的。为了满足这些特殊要求，我们就可以尝试下面两个方法。一个是我们自己调整ToneMapping的曲线，另外我们也可以尝试一些其他的ToneMapping的算法，如Filmic ToneMapping。
+
+然后其他的修改方式也有，比如反函数的ToneMapping计算，或者是对皮肤做亮度补偿，或者直接不管使用伽玛流程，它画出来什么就是什么。
+
+<br>
+
+<br>
+
+------
 
 
 
+<br>
 
 <br>
 
@@ -275,14 +361,6 @@ Bloom使用高光提取，还可以偏移色相饱和度，这样对卡通渲染
 
 
 <br>
-
-------
-
-
-
-
-
-
 
 <br>
 
