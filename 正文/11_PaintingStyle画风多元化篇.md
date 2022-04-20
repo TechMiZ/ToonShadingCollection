@@ -142,6 +142,22 @@
 
 ![CH11_PaintingStyle_F_OilPaintingStyleFilterSNN](../imgs/CH11_PaintingStyle_F_OilPaintingStyleFilterSNN.jpg)
 
+SNN滤镜也被称为“对称近邻平滑滤波器”，它本来是用于去除图像中的噪声用的，也就是图像中的高频信息。但是这个也使得画面中的色阶变少了，看起来更加卡通。目前在《蓝色协议》和《破晓传说》里面都看到他们使用SNN滤波器来处理场景。
+
+![CH11_PaintingStyle_F_FilterSNN](../imgs/CH11_PaintingStyle_F_FilterSNN.png)
+
+类似效果的还有Kuwahara滤波器，左边这个是SNN滤波器，右边是Kuwahara滤波器，最下面这个是没有加任何滤镜的情况。可以看到 SNN滤波器和Kuwahara滤波器的效果都差不多，但是在细节对比上，SNN滤波器能够保留更多细节。
+
+![CH11_PaintingStyle_F_FilterKuwahara](../imgs/CH11_PaintingStyle_F_FilterKuwahara.png)
+
+有位大佬的修改过的[《Dither Kuwahara实时滤镜效果》](https://www.bilibili.com/video/BV1wp4y1e7pM/?spm_id_from=trigger_reload)可以看一下实时效果，观感应该比原始算法更稳定。感觉场景上非常惊艳，写实奇幻风的画面一下就变得艺术化了。人物比较糊，不过也可以继续遮罩一下角色作专门调整，个人认为如果是比较二次元的角色的话，可以将角色剔除出这个滤镜，直接搭配滤镜下的手绘感场景。
+
+作者说是在偶然的尝试中得出，自己也不明白其中的数学理论，仅仅简单解释了一下：在XY轴方向分别用不同的步长，关键是要多次采样滤镜。（跟Dither有关？可能需要历史帧的数据？）
+
+![CH11_PaintingStyle_F_DitherKuwaharaFilter](../imgs/CH11_PaintingStyle_F_DitherKuwaharaFilter.png)
+
+关于Kuwahara等滤波器的算法改进，还有很多论文案例，大家可以自行搜索研究。
+
 <br>
 
 <br>

@@ -391,6 +391,12 @@ Relink让这些Local光直接应用直线光的投影范围，解决了这个问
 
 <br>
 
+在米哈游的技术分享中似乎能看见脸上的斑驳树叶影子流动……看不太清楚，也可能只有身体有细节投影而脸上是整体压暗，存疑。
+
+![CH13_Shadow_E_PossibleFaceShadow](../imgs/CH13_Shadow_E_PossibleFaceShadow.gif)
+
+<br>
+
 <br>
 
 ------
