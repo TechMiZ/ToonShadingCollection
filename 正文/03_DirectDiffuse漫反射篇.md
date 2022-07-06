@@ -500,17 +500,17 @@ Siggraph的Pre-Integrated Skin Rendering做法是，在横向UV上使用NdotL，
 
 先从亮部、暗部，色彩对比关系来说。
 
-![CH03_directDiffuse_F_ColorDesignExample1](F:\MyProjects\ToonShadingCollection\imgs\CH03_directDiffuse_F_ColorDesignExample1.png)
+![CH03_directDiffuse_F_ColorDesignExample1](..\imgs\CH03_directDiffuse_F_ColorDesignExample1.png)
 
 左边是剧照，右边是从上面取出来的颜色。一眼看上去，首先右边色板的左边那一条是亮部色，右边是暗部色。其实你一眼看上去能大概感觉到它的色彩有一些变化，但变化不是太大，这个就是日本传统动漫角度的一个实现方式。
 
 但是你从皮肤的角度来看亮部、暗部的颜色，暗部会相对偏暖一点，从它盔甲的颜色上来看，又会受到环境色的影响，所以它有点偏冷。如果你是用3D角度直接做一个3D游戏，你不需要考虑这些东西，因为有很多现成的光线追踪，或者说有些反弹，就可以做这件事情。但这个是后面会讲到如何去处理的一个东西。
 
-![CH03_directDiffuse_F_ColorDesignExample2](F:\MyProjects\ToonShadingCollection\imgs\CH03_directDiffuse_F_ColorDesignExample2.png)
+![CH03_directDiffuse_F_ColorDesignExample2](..\imgs\CH03_directDiffuse_F_ColorDesignExample2.png)
 
 这张图是从整体和局部色彩对比关系来讲，同一个角色在雨天、晴天和雪天，也有不同的色彩变化。这个也很好理解，哪怕是一个正常的电影，一个人也会有很多色彩变化。这个里面雨天和雪天会有点接近，因为它都是属于一个漫反射的环境。晴天由于受到阳光的照射比较强烈，整体看起来颜色跟对比度会强一些。
 
-![CH03_directDiffuse_F_ColorDesignExample3](F:\MyProjects\ToonShadingCollection\imgs\CH03_directDiffuse_F_ColorDesignExample3.png)
+![CH03_directDiffuse_F_ColorDesignExample3](..\imgs\CH03_directDiffuse_F_ColorDesignExample3.png)
 
 这是扳机社的《普罗米亚》电影。到了现在，日本的动画颜色已经发展得非常强烈了。这个片子如果大家有兴趣，可以找一些剧照和花絮来看，非常华丽。它的华丽度已经比刚才那个强烈很多，但是看久了也会视觉疲劳。
 
@@ -518,17 +518,17 @@ Siggraph的Pre-Integrated Skin Rendering做法是，在横向UV上使用NdotL，
 
 理解了这种受众和审美以后，是如何把它用到游戏里的？这个就是游戏里面的角色：卡洛琳。左边是她的原生状态，右边是她的一个皮肤。
 
-![CH03_directDiffuse_F_ColorDesignExample4](F:\MyProjects\ToonShadingCollection\imgs\CH03_directDiffuse_F_ColorDesignExample4.png)
+![CH03_directDiffuse_F_ColorDesignExample4](..\imgs\CH03_directDiffuse_F_ColorDesignExample4.png)
 
 你看到左边这个角色，她全身都是非常冷的颜色，包括暗部我们也故意调成了一个偏冷的紫色，就是为了让她的色彩能统一。但是这样一来，她的色彩就会容易变得比较生硬。所以虽然她是黄色的头发，但给她加了一个非常重的粉红色，其实是用了一个紫色暗部做衬托。然后她的皮肤、身上衣服的暗部，用了冷色来衬托，达到一种统一效果。
 
 另外一个是校园教练，通过对比他的头发就能看出，其实头发、皮肤和身体着装的暗部都是统一的颜色，让他看起来像是沐浴在阳光中的一个状态。这对应刚才讲的，亮部和暗部要有色彩对比，是人为处理的。同时，它整体也要有一个色彩饱和度对比，这是一个简单的技术说明，就不说非常细节的内容了。
 
-![CH03_directDiffuse_F_ColorDesignExample5](F:\MyProjects\ToonShadingCollection\imgs\CH03_directDiffuse_F_ColorDesignExample5.png)
+![CH03_directDiffuse_F_ColorDesignExample5](..\imgs\CH03_directDiffuse_F_ColorDesignExample5.png)
 
 左边第一张图是实现出来的效果，第二张图是在暗部色做的处理。你可以看到，头发的颜色、饱和度和色彩倾向是非常重的。最右边的那张图，可以认为是个shader，其中一个过程是把黑色和白色作为阴影分离开。在黑色区域，把中间这张图跟我们的亮部色做一个叠加混合，就得到了最终效果。 
 
-![CH03_directDiffuse_F_ColorDesignExample6](F:\MyProjects\ToonShadingCollection\imgs\CH03_directDiffuse_F_ColorDesignExample6.png)
+![CH03_directDiffuse_F_ColorDesignExample6](..\imgs\CH03_directDiffuse_F_ColorDesignExample6.png)
 
 右边这张图是《爱，死亡和机器人》里的一张静帧截图，这是一个偏美式的画面效果，但是可以看到，角色白色的衬衣往上有一个反射光，看起来是一个暖色的。在一部正常的电影，或者说一个稍微写实一点的画面里，你不会看到这么强烈的一个反光，这里是在故意强调他的裤子，或者说整个环境对他白衬衣暗部的反射影响。
 
@@ -538,11 +538,11 @@ Siggraph的Pre-Integrated Skin Rendering做法是，在横向UV上使用NdotL，
 
 粉红色会产生什么效果呢？光线追踪它会不停地反弹这个球的深色区域，让这个粉红色慢慢地渗透到暗部，包括它的投影和明暗交界线后面的区域。你会看到一个比较强烈的效果，这个工作我们现在也正在用于角色实验当中。
 
-![CH03_directDiffuse_F_FakeShadeColorBlend](F:\MyProjects\ToonShadingCollection\imgs\CH03_directDiffuse_F_FakeShadeColorBlend.gif)
+![CH03_directDiffuse_F_FakeShadeColorBlend](..\imgs\CH03_directDiffuse_F_FakeShadeColorBlend.gif)
 
 左边是现在的《王牌战士》角色效果，右边是正在尝试中的画面效果。通过对比可以看出，之前的赛璐璐效果很有特点和风格，但如果要继续往下走、想要更多细节，或者说想要更多的表现力，就需要做出更多尝试，去找到一个平衡点。
 
-![CH03_directDiffuse_F_ColorDesignExample7](F:\MyProjects\ToonShadingCollection\imgs\CH03_directDiffuse_F_ColorDesignExample7.png)
+![CH03_directDiffuse_F_ColorDesignExample7](..\imgs\CH03_directDiffuse_F_ColorDesignExample7.png)
 
 可以看到，现在正在进化中的，就是一些明暗交界线的色彩关系，包括高光区域的处理。现在这个角色的色彩里就已经包含了刚才说的光线追踪效果，但是因为要在游戏里面实时奔跑，我们会用到一些其他的技术。
 
@@ -572,9 +572,9 @@ Siggraph的Pre-Integrated Skin Rendering做法是，在横向UV上使用NdotL，
 
 也有人试过给明暗边界线添加噪音，似乎有种晕染笔触感，不清楚如果大规模用到人物身上是否自然：
 
-![CH03_directDiffuse_I_AnimeStyleSideEdge1](F:\MyProjects\ToonShadingCollection\imgs\CH03_directDiffuse_I_AnimeStyleSideEdge1.png)
+![CH03_directDiffuse_I_AnimeStyleSideEdge1](..\imgs\CH03_directDiffuse_I_AnimeStyleSideEdge1.png)
 
-![CH03_directDiffuse_I_AnimeStyleSideEdge2](F:\MyProjects\ToonShadingCollection\imgs\CH03_directDiffuse_I_AnimeStyleSideEdge2.png)
+![CH03_directDiffuse_I_AnimeStyleSideEdge2](..\imgs\CH03_directDiffuse_I_AnimeStyleSideEdge2.png)
 
 <br>
 
