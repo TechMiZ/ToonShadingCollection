@@ -155,7 +155,7 @@ Unity有免费插件Normal Painter等工具做手动修正，Maya自带法线传
 
 #### 面部布线注意点补充
 
-![CH03a_faceDirectDiffuse_B_FaceTopologyEample](..\imgs\CH03a_faceDirectDiffuse_B_FaceTopologyEample.png)
+![CH03a_faceDirectDiffuse_B_FaceTopologyEample](../imgs/CH03a_faceDirectDiffuse_B_FaceTopologyEample.png)
 
 脸颊的小的倒三角形，这个效果不是随便就能做出来的，稍微懂一点打光的朋友都能了解，这是一个比较经典的伦勃朗三点光源产生的一种明中有暗、暗中有明的效果。如果卡通渲染想要达到这个效果，就要谈到布线的问题。
 

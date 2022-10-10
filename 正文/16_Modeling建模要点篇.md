@@ -56,7 +56,7 @@
 
 去年写本文的时候没有找到合适的图（有工作图但不该发），今年终于给我找到了，玩家简笔画归纳得简直跟我之前上班画的分析图一模一样。实在没想到某厂已经做过十分成功的二游竟然还犯这种低级错误，建模师是新来的？
 
-![CH16_Modeling_A_HeadShape](..\imgs\CH16_Modeling_A_HeadShape.png)
+![CH16_Modeling_A_HeadShape](../imgs/CH16_Modeling_A_HeadShape.png)
 
 <br>
 

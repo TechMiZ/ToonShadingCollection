@@ -175,13 +175,13 @@ Unity的默认管线无法方便地遍历整个光源列表，并且无法在Sha
 
 缺点是“阴影”的绘制与光照着色及人物贴图完全无关，导致在许多情况下会显得突兀。说白了就是因为刘海投影只使用了一个暗色，而面部是用面部贴图乘以暗部颜色的，只要面部贴图不是赛璐璐风格的纯色，便无法避免两者在结果上的差异。 
 
-![CH13_Shadow_B_CustomBufferOffsetFakeShadow3](..\imgs\CH13_Shadow_B_CustomBufferOffsetFakeShadow3.jpg)
+![CH13_Shadow_B_CustomBufferOffsetFakeShadow3](../imgs/CH13_Shadow_B_CustomBufferOffsetFakeShadow3.jpg)
 
-![CH13_Shadow_B_CustomBufferOffsetFakeShadow4](..\imgs\CH13_Shadow_B_CustomBufferOffsetFakeShadow4.jpg)
+![CH13_Shadow_B_CustomBufferOffsetFakeShadow4](../imgs/CH13_Shadow_B_CustomBufferOffsetFakeShadow4.jpg)
 
 大不了再画一次脸，这次直接就是贴图色乘以暗色，总没问题了吧。 那么我们将头发的Pass修改一下，使用ColorMask 0让它不再画入颜色，且将模板值重置为0。然后给这个Shader再添加一个Pass，用于重新渲染面部，增加面部贴图的指定，以及面部的再绘制。当然，这样结果比较理想也只是因为面部的渲染算法比较简单，如果还有边缘光或者其他什么操作，大概就得真的重新用角色材质重新画一次了。
 
-![CH13_Shadow_B_CustomBufferOffsetFakeShadow5](..\imgs\CH13_Shadow_B_CustomBufferOffsetFakeShadow5.jpg)
+![CH13_Shadow_B_CustomBufferOffsetFakeShadow5](../imgs/CH13_Shadow_B_CustomBufferOffsetFakeShadow5.jpg)
 
 <br>
 

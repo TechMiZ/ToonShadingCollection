@@ -346,15 +346,15 @@ PBR中存在的间接光照计算可以比较方便的适配不同环境下的�
 
 个人做了一些新的尝试，完全抛弃了PBR物理算法但也有模拟PBR的渲染结果，感觉还好？只有光源数值是物理的，主要是基于金属、光滑数值搭配的最终视觉效果的分析，逆向推导出能拟合这些结果的（对梯度漫反射、梯度高光、MatCap反射图像等各成分的）简单混合比例。最后PBR的金属工作流贴图基本可以挪用，总之目的是为了在基本梯度卡通化效果上继续丰富材质质感，又不至于太过写实。
 
-![CH07_PBRIntegration_F_MyTest1](..\imgs\CH07_PBRIntegration_F_MyTest1.png)
+![CH07_PBRIntegration_F_MyTest1](../imgs/CH07_PBRIntegration_F_MyTest1.png)
 
 继续加入各向异性效果（各种算法测试），可模拟金属或丝绸：
 
-![CH07_PBRIntegration_F_MyTest2](..\imgs\CH07_PBRIntegration_F_MyTest2.png)
+![CH07_PBRIntegration_F_MyTest2](../imgs/CH07_PBRIntegration_F_MyTest2.png)
 
-![CH07_PBRIntegration_F_MyTest3](..\imgs\CH07_PBRIntegration_F_MyTest3.png)
+![CH07_PBRIntegration_F_MyTest3](../imgs/CH07_PBRIntegration_F_MyTest3.png)
 
-![CH07_PBRIntegration_F_MyTest4](..\imgs\CH07_PBRIntegration_F_MyTest4.png)
+![CH07_PBRIntegration_F_MyTest4](../imgs/CH07_PBRIntegration_F_MyTest4.png)
 
 <br>
 
