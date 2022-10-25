@@ -297,15 +297,60 @@ Unity有免费插件Normal Painter等工具做手动修正，Maya自带法线传
 
 <br>
 
+- ##### 程序化批量生成
+
+[卡通渲染流程【番外-使用SD批量生成面部SDF贴图】](https://zhuanlan.zhihu.com/p/546880604)
+
+[卡通渲染流程【番外-使用SD批量生成SDF贴图】-简介有教程和工程文件！](https://www.bilibili.com/video/BV1Md4y1D7sZ)
+
+用Substance Designer程序化批量生成SDF贴图。
+
+![CH03a_faceDirectDiffuse_D_MakeSDF4](../imgs/CH03a_faceDirectDiffuse_D_MakeSDF4.jpg)
+
+<br>
+
 <br>
 
 ------
 
-### 距离场+法线混合计算
+### 算法改良
+
+#### ——SDF柔化边缘
+
+其实这里的明暗交界线是可以改成软边效果的，边界的采样锯齿问题也可以缓解，但在某些光照角度和参数组合的条件下会有渐变过渡区域阶梯化的问题。
+
+![CH03a_faceDirectDiffuse_E_SoftSDF](../imgs/CH03a_faceDirectDiffuse_E_SoftSDF.gif)
+
+*↑实现效果*
+
+示例代码如下，注意原作者写得比较粗糙，还有优化空间：
+
+```glsl
+float isSahdow = 0;
+//这张阈值图代表的是阴影在灯光从正前方移动到左后方的变化
+half4 ilmTex = tex2D(_IlmTex, input.uv);
+ //这张阈值图代表的是阴影在灯光从正前方移动到右后方的变化
+half4 r_ilmTex = tex2D(_IlmTex, float2(1 - input.uv.x, input.uv.y));
+float2 Left = normalize(TransformObjectToWorldDir(float3(1, 0, 0)).xz);	//世界空间角色正左侧方向向量
+float2 Front = normalize(TransformObjectToWorldDir(float3(0, 0, 1)).xz);	//世界空间角色正前方向向量
+float2 LightDir = normalize(light.direction.xz);
+float ctrl = 1 - clamp(0, 1, dot(Front, LightDir) * 0.5 + 0.5);//计算前向与灯光的角度差（0-1），0代表重合
+float ilm = dot(LightDir, Left) > 0 ? ilmTex.r : r_ilmTex.r;//确定采样的贴图
+//ctrl值越大代表越远离灯光，所以阴影面积会更大，光亮的部分会减少-阈值要大一点，所以ctrl=阈值
+//ctrl大于采样，说明是阴影点
+isSahdow = step(ilm, ctrl);
+bias = smoothstep(0, _LerpMax, abs(ctrl - ilm));//平滑边界，smoothstep的原理和用法可以参考我上一篇文章
+if (ctrl > 0.99 || isSahdow == 1)
+    diffuse = lerp(diffuse , diffuse * _ShadowColor.xyz ,bias);
+```
+
+<br>
+
+#### ——SDF+法线混合计算
 
 Cygames Tech Conference中赛马娘分享的方式，使用类似SDF的方式绘制特征区域，并配合修正法线后的光照结果，混合获得面部阴影。
 
-这种方式比单纯使用SDF的好处是：当阴影边界恰好在在面部可形变区域时（比如眼睛与嘴部），阴影边界不会因为面部变形而拉伸。另外还可以减少mask绘制工作量。细节调整一下甚至可以照顾到光源任意旋转角度的光影形态。
+这种方式比单纯使用SDF的好处是：当阴影边界恰好在在面部可形变区域时（比如眼睛与嘴部），阴影边界不会因为面部变形而拉伸。另外还可以减少mask绘制工作量。因为考虑到了法线，有调整为照顾到光源任意旋转角度光影形态的可能性。
 
 ![CH03a_faceDirectDiffuse_E_NormalWithSDF](../imgs/CH03a_faceDirectDiffuse_E_NormalWithSDF.jpg)
 

@@ -180,13 +180,12 @@
 
 <br>
 
-`float2 viewL = mul(viewW, (float3x2) worldInverse);`
-
-`float2 offset = height * viewL;`
-
-`offset.y = -offset.y;`
-
-`texcoord -= parallaxScale * offset;`
+```glsl
+float2 viewL = mul(viewW, (float3x2) worldInverse);
+float2 offset = height * viewL;
+offset.y = -offset.y;
+texcoord -= parallaxScale * offset;
+```
 
 <br>
 
@@ -214,43 +213,26 @@
 
 基于物理的折射，核心在于折射光线的计算，refracted向量就对应了UV的Offset。首先上代码：
 
-<br>
+```glsl
+// 角膜区域突起的模型
+// Alternatively, use a displacement map
+height = max(-positionL.z – eyeIrisDepth, 0.0); 
 
-`// 角膜区域突起的模型`
+// 球形模型
+// Plot[Max[1.0 - 18.4 * r * r, 0.0], {r, 0, 0.3}]
+height = anteriorChamberDepth * saturate( 1.0 - 18.4 * radius * radius ); 
 
-`// Alternatively, use a displacement map`
+// refractedW
+float w = n * dot( normalW, viewW );
+float k = sqrt( 1.0 + ( w - n ) * ( w + n ) );
+float3 refractedW = ( w - k ) * normalW - n * viewW;
 
-`// height = max(-positionL.z – eyeIrisDepth, 0.0);` 
-
-<br>
-
-`// 球形模型`
-
-`// Plot[Max[1.0 - 18.4 * r * r, 0.0], {r, 0, 0.3}]`
-
-`height = anteriorChamberDepth * saturate( 1.0 - 18.4 * radius * radius );` 
-
-<br>
-
-`// refractedW`
-
-`float w = n * dot( normalW, viewW );`
-
-`float k = sqrt( 1.0 + ( w - n ) * ( w + n ) );`
-
-`float3 refractedW = ( w - k ) * normalW - n * viewW;`
-
-<br>
-
-`float cosAlpha = dot(frontNormalW, -refractedW);`
-
-`float dist = height / cosAlpha;`
-
-`float3 offsetW = dist * refractedW;`
-
-`float2 offsetL = mul(offsetW, (float3x2) worldInverse);`
-
-`texcoord += float2(mask, -mask) * offsetL;`
+float cosAlpha = dot(frontNormalW, -refractedW);
+float dist = height / cosAlpha;
+float3 offsetW = dist * refractedW;
+float2 offsetL = mul(offsetW, (float3x2) worldInverse);
+texcoord += float2(mask, -mask) * offsetL;
+```
 
 ![CH09a_Eye_C_IrisPhysicalRefraction](../imgs/CH09a_Eye_C_IrisPhysicalRefraction.jpg)
 
@@ -326,13 +308,12 @@ Matcap的细节这里不过多阐述，主要方法就是使用视角空间下�
 
  <br>
 
-`float3 NormalBlend_MatcapUV_Detail = viewNormal.rgb * float3(-1,-1,1);`
-
-`float3 NormalBlend_MatcapUV_Base = (mul( UNITY_MATRIX_V, float4(viewDirection,0)).rgb*float3(-1,-1,1)) + float3(0,0,1);`
-
-`float3 noSknewViewNormal = NormalBlend_MatcapUV_Base*dot(NormalBlend_MatcapUV_Base, NormalBlend_MatcapUV_Detail)/NormalBlend_MatcapUV_Base.b - NormalBlend_MatcapUV_Detail;`        
-
-`float2 ViewNormalAsMatCapUV = noSknewViewNormal.rg * 0.5 + 0.5;`
+```glsl
+float3 NormalBlend_MatcapUV_Detail = viewNormal.rgb * float3(-1,-1,1);
+float3 NormalBlend_MatcapUV_Base = (mul( UNITY_MATRIX_V, float4(viewDirection,0)).rgb*float3(-1,-1,1)) + float3(0,0,1);
+float3 noSknewViewNormal = NormalBlend_MatcapUV_Base*dot(NormalBlend_MatcapUV_Base, NormalBlend_MatcapUV_Detail)/NormalBlend_MatcapUV_Base.b - NormalBlend_MatcapUV_Detail;
+float2 ViewNormalAsMatCapUV = noSknewViewNormal.rg * 0.5 + 0.5;
+```
 
  <br>
 
@@ -455,5 +436,27 @@ Stencil
 
 ------
 
-### 
+<br>
+
+
+
+<br>
+
+<br>
+
+------
+
+
+
+<br>
+
+<br>
+
+------
+
+
+
+
+
+
 

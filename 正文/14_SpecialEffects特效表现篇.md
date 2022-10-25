@@ -26,6 +26,16 @@
 
 ### 运动模糊
 
+动画制作中有一个词叫帧内，就是形容卡通版的动态模糊。在Photoshop或者游戏里可以打开这个动态模糊，其实就是一个功能。但回到动画片来说，那个时候在胶片上画一个模糊的感觉是比较难的，所以他们创造了一个词叫帧内。在两个帧之间由于手的摆动，会形成视觉残留，它就不在这个过程中把手画成一个整体。
+
+![CH14_SpecialEffects_B_MotionBlurExampleCut](../imgs/CH14_SpecialEffects_B_MotionBlurExampleCut.gif)
+
+《蜘蛛侠：平行宇宙》正好有个特别合适的例子，因为这个小孩，这个平行宇宙里有一个二次元的、蜘蛛侠的精神集成，电影里对她的表达都是卡通做法，一晃而过。
+
+![CH14_SpecialEffects_B_MotionBlurExampleCut](../imgs/CH14_SpecialEffects_B_MotionBlurExampleCut.png)
+
+截了几张图，相当于是它的二维动画版，一个动态模糊效果，它把整条线都非常具体地呈现出来了。当这种帧内充斥在项目当中时，你会很明显地感觉到它跟写实游戏的区别。
+
 ![CH14_SpecialEffects_B_MotionBlur](../imgs/CH14_SpecialEffects_B_MotionBlur.jpg)
 
 为了表现物体高速运动的速度感，物体表面的轮廓会发生类似于速度线的变形。

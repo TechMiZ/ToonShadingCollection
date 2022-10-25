@@ -185,6 +185,45 @@ FOV越大视野越宽，透视的变形就越大，下图可以很好的展示�
 
 ------
 
+### 整体矩阵透视修正
+
+<br>
+
+参考原神的编队界面，当同屏幕出现多个角色时，处于相机外侧的角色会出现明显的变形，即便相机在fov 40度情况下，也会很明显。 读者肯定想到了说要用正交投影，但是正交投影，角色会完全失去透视关系，尤其注意角色的鞋会发现后边的跑到前边，因为透视关系丢失了，而这并不是美术想要的，美术还是希望有透视关系。说白了也就是美术希望站在外侧的角色效果也能和屏幕中间的那个一样，没有出现透视的影响。
+
+![CH15b_FitFOV_D_FixedSideFOV](../imgs/CH15b_FitFOV_D_FixedSideFOV.jpg)
+
+一套实现思路，将透视矩阵的前两行的X和Y偏移值改为固定值，可能就是由于这两个值和fov透视有关系，才导致的近大远小的结果，才导致外侧的角色看起来透视明显的原因。
+
+![CH15b_FitFOV_D_MatrixToFixSideFOV](../imgs/CH15b_FitFOV_D_MatrixToFixSideFOV.jpg)
+
+Unity中代码实现：
+
+```glsl
+half _ShiftX;//可以C#传入进去，在X方向上的偏移，由美术调节
+half _ShiftY;//可以C#传入进去，在Y方向上的偏移，由美术调节
+
+v2f vert (appdata v)
+{
+	v2f o;
+
+	float4 positionVS = mul(UNITY_MATRIX_MV, v.vertex);
+	float4x4 PMatrix = UNITY_MATRIX_P;
+	PMatrix[0][2] = _ShiftX;
+	PMatrix[1][2] = _ShiftY;
+	o.pos = mul(PMatrix, positionVS);
+}
+
+```
+
+![CH15b_FitFOV_D_FixSideFOV](../imgs/CH15b_FitFOV_D_FixSideFOV.jpg)
+
+<br>
+
+<br>
+
+------
+
 ### FOV最佳角色表现参考区间
 
 <br>

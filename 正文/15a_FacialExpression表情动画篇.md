@@ -92,6 +92,14 @@ Blend shape在CG制作动漫中非常常见，本质是修改网格顶点进行�
 
 ![CH15a_FacialExpression_D_ExtremeExpression](../imgs/CH15a_FacialExpression_D_ExtremeExpression.jpg)
 
+比较含蓄也适用，脸上滴一滴汗、一头黑线、有点小红晕，都是可以做表情线的。
+
+![CH15a_FacialExpression_D_ExtraLines](../imgs/CH15a_FacialExpression_D_ExtraLines.png)
+
+这张图左边就是表现出来的效果，看右边那个不起眼的几条线，有红线、有黑线，其实还有一些面部皮肤颜色的线，这个还挺重要的。这个线可以放大，把它放在屏幕周围，它就变成了速度线。 
+
+仔细看他的左边咧开的嘴角，嘴角的线其实也是用线摆上去的。用3D模拟的时候，它不可能在所有视角看起来都是那么的自然，我们就需要有一些工具修补瑕疵，比如咧开嘴以后嘴巴边缘会缺少一些黑色区域来跟他的白色牙齿做区分，只能用这种方式去弥补它。
+
 <br>
 
 #### 非对称性变形
