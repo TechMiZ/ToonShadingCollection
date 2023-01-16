@@ -424,6 +424,18 @@ Package路径下面有一个叫做manifest.json文件，在这里面我们可以
 
 <br>
 
+- ##### 修改算法源码
+
+Gran Turismo曲线效果似乎较好：
+
+![CH08_PostProcessing_D_ToneMapping16](../imgs/CH08_PostProcessing_D_ToneMapping16.png)
+
+[效果演示1](https://www.bilibili.com/video/BV1J341137U5)  [效果演示2](https://www.youtube.com/watch?v=WR_SP4LmOlw&t=3s)  
+
+[曲线演示](https://www.desmos.com/calculator/gslcdxvipg?lang=zh-CN)  
+
+<br>
+
 #### 总结
 
 这里主要也是想给大家抛砖引玉，说一下卡通渲染对于ToneMapping是有特殊要求的。为了满足这些特殊要求，我们就可以尝试下面两个方法。一个是我们自己调整ToneMapping的曲线，另外我们也可以尝试一些其他的ToneMapping的算法，如Filmic ToneMapping。
